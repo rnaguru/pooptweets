@@ -18,7 +18,8 @@ min <- min(wwopen$roll7d, na.rm = TRUE)
 med <- median(wwopen$roll7d, na.rm = TRUE)
 max <- max(wwopen$roll7d, na.rm = TRUE)
 #last data point
-lastpoint<-tail(wwopen, n=1) 
+lastpoint<-tail(wwopen, n=1)
+
 
 ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 3/10)) +
   # geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = input$N1N2spanslider,color = "#FC4E07",fill = "#FC4E07")+
@@ -78,7 +79,7 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
   #geom_label(aes(x=lastpoint$Date, y=lastpoint$N1N2norm, label = lastpoint$Date), color="blue", fill="white", alpha=1/25, size=2, vjust=0.5, hjust=0.5)
   geom_text_repel(
     data = lastpoint, 
-    aes(label=toString(Date)),
+    aes(label=toString(format(Date, "%B %d"))),
     segment.curvature = -0.2,
     box.padding = 1.0,
     nudge_x = 0,
@@ -101,4 +102,4 @@ post_tweet(
 #  media = ,
 #  media_alt_text = NULL
 )
-
+       
