@@ -18,4 +18,15 @@ jobs:
       - name: Install rtweet package
         run: Rscript -e 'install.packages("rtweet", dependencies = TRUE)'  
       - name: Create and post tweet
+        run: Rscript -e 'install.packages("cowplot", dependencies = TRUE)'
+      - name: Install gghighlight package
+        run: Rscript -e 'install.packages("gghighlight", dependencies = TRUE)'
+      - name: Install tidyverse package
+        run: Rscript -e 'install.packages("tidyverse", dependencies = TRUE)'
+      - name: Install dplyr package
+        run: Rscript -e 'install.packages("dplyr", dependencies = TRUE)'
+      - name: Install tidyquant package
+        run: Rscript -e 'install.packages("tidyquant", dependencies = TRUE)'
+      - name: Install ggrepel package
+        run: Rscript -e 'install.packages("ggrepel", dependencies = TRUE)
         run: Rscript ottawacov2tweet.R
