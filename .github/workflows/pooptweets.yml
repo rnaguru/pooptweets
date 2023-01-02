@@ -30,4 +30,4 @@ jobs:
       - name: Install ggrepel package        
 	      run: Rscript -e 'install.packages("ggrepel", dependencies = TRUE)
       - name: Create and post tweet
-        run: Rscript ottawacov2tweet.R
+              run: Rscript ottawacov2tweet.R
