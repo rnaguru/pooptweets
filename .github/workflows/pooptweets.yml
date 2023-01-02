@@ -1,0 +1,27 @@
+name: pooptweets
+
+on:
+  schedule:
+    - cron: '0 0 5 1/1 * ? *'  # trigger at 05:00 every day
+
+jobs:
+  pooptweets-post:
+    runs-on: macOS-latest
+    env:
+      TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+      TWITTER_CONSUMER_API_SECRET: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+      TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+      TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@v2
+      - name: Install R packages
+        run: Rscript -e 'install.packages("rtweet", dependencies = TRUE)'
+	      run: Rscript -e 'install.packages("couplet", dependencies = TRUE)'
+	      run: Rscript -e 'install.packages("gghighlight", dependencies = TRUE)'
+	      run: Rscript -e 'install.packages("tidyverse", dependencies = TRUE)'
+	      run: Rscript -e 'install.packages("dplyr", dependencies = TRUE)'
+	      run: Rscript -e 'install.packages("tidyquant", dependencies = TRUE)'
+	      run: Rscript -e 'install.packages("ggrepel", dependencies = TRUE)
+      - name: Create and post tweet
+        run: Rscript ottawacov2tweet.R
