@@ -98,7 +98,7 @@ library(rtweet)
 
 post_tweet(
   status = "test tweet",
-  media = ottawacov2ww.png,
+  media = ,
   media_alt_text = NULL
 )
 
