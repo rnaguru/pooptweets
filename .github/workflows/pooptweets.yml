@@ -2,7 +2,7 @@ name: pooptweets
 
 on:
   schedule:
-    - cron: '0,30 * * * *'  # trigger at 05:00 every day
+    - cron: '0 0 12 1/1 * ? *'  # trigger at non every day
 
 jobs:
   pooptweets-post:
