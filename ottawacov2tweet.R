@@ -109,7 +109,7 @@ rbot_token <- rtweet::create_token(
 )
 
 post_tweet(
-  status = "test tweet - this tweet will be deleted shortly.",
+  status = "test tweet-this tweet will be deleted shortly.",
 #  media = ,
 #  media_alt_text = NULL
   token = rbot_token
