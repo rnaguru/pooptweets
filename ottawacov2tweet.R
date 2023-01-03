@@ -91,8 +91,20 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
 #ARRANGE and LABEL -----------------------------------------------------------------------------
 #dev.new(width = 5, height = 5, unit = "inches")
 plot <-plot_grid(ottawaalltime, ottawapastyear, ottawapast2months,ncol = 1, align = 'vh', axis = 'l',labels = c('A', 'B', 'C'), rel_widths=c(1, 1,1), label_size = 16)
-#save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
 
+# define the plot file to tweet
+png <- save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
+
+# Tweet alt-text description
+alt_text <- paste(
+  "A plot of Ottawa wastewater data."
+  )
+
+# Tweet message
+message <- paste(
+  "This is a tweet test and will be deleted."
+  )
+nchar(message)
 
 #TWEET it out via pooptweets twitter app --------------------------------------------------------
 library(rtweet)
@@ -109,8 +121,8 @@ rbot_token <- rtweet::create_token(
 )
 
 post_tweet(
-  status = "testing automated tweets-ignore this.",
-  media = plot,
-  media_alt_text = "a plot",
+  status = message,
+  media = png,
+  media_alt_text = alt-text,
   token = rbot_token
 )
