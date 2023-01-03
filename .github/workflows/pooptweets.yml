@@ -31,6 +31,6 @@ jobs:
       - name: Install tidyquant package
         run: Rscript -e 'install.packages("tidyquant", dependencies = TRUE)'
       - name: Install ggrepel package
-        run: Rscript -e 'install.packages("ggrepel", dependencies = TRUE)
+        run: Rscript -e 'install.packages("ggrepel", dependencies = TRUE)'
       - name: Run the R script
         run: Rscript ottawacov2tweet.R
