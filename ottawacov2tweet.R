@@ -98,7 +98,7 @@ save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
 library(rtweet)
 
 post_tweet(
-  status = "test tweet"
+  status = "test tweet - this tweet will self-destruct"
 #  media = ,
 #  media_alt_text = NULL
 )
