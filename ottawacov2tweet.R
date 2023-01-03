@@ -1,8 +1,8 @@
 library(cowplot)
 library(gghighlight)
 library(tidyverse)
-library(dplyr)
-library(tidyquant)
+#library(dplyr)
+#library(tidyquant)
 library(ggrepel)
 
 ##pull in and convert ALL SARS ww data to average of N1/PMMOV + N2/PMMOV and limit to dates for which there is VOC data
@@ -96,7 +96,7 @@ plot <-plot_grid(ottawaalltime, ottawapastyear, ottawapast2months,ncol = 1, alig
 png <- save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
 
 # Tweet alt-text description
-alt_text <- paste(
+alttext <- paste(
   "A plot of Ottawa wastewater data."
   )
 
@@ -123,6 +123,6 @@ rbot_token <- rtweet::create_token(
 post_tweet(
   status = message,
   media = png,
-  media_alt_text = alt-text,
+  media_alt_text = alttext,
   token = rbot_token
 )
