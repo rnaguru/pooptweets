@@ -90,8 +90,8 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
 
 #ARRANGE and LABEL -----------------------------------------------------------------------------
 #dev.new(width = 5, height = 5, unit = "inches")
-plot<-plot_grid(ottawaalltime, ottawapastyear, ottawapast2months,ncol = 1, align = 'vh', axis = 'l',labels = c('A', 'B', 'C'), rel_widths=c(1, 1,1), label_size = 16)
-save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
+plot <-plot_grid(ottawaalltime, ottawapastyear, ottawapast2months,ncol = 1, align = 'vh', axis = 'l',labels = c('A', 'B', 'C'), rel_widths=c(1, 1,1), label_size = 16)
+#save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
 
 
 #TWEET it out via pooptweets twitter app --------------------------------------------------------
@@ -111,6 +111,6 @@ rbot_token <- rtweet::create_token(
 post_tweet(
   status = "testing automated tweets-ignore this.",
   media = plot,
-#  media_alt_text = NULL
+  media_alt_text = "a plot",
   token = rbot_token
 )
