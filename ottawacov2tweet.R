@@ -98,24 +98,7 @@ save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
 library(rtweet)
 
 post_tweet(
-  status = "test tweet"
+  status = "test tweet - this tweet will be deleted shortly."
 #  media = ,
 #  media_alt_text = NULL
 )
-
-# Create a token containing your Twitter keys
-rbot_token <- rtweet::create_token(
-  app = "pooptweets",
-  # the name of the Twitter app
-  consumer_key = Sys.getenv("RBOT_TWITTER_CONSUMER_API_KEY"),
-  consumer_secret = Sys.getenv("RBOT_TWITTER_CONSUMER_API_SECRET"),
-  access_token = Sys.getenv("RBOT_TWITTER_ACCESS_TOKEN"),
-  access_secret = Sys.getenv("RBOT_TWITTER_ACCESS_TOKEN_SECRET"),
-  set_renv = FALSE
-)
-
-# Example: post a tweet via the API
-# The keys are in your environment thanks to create_token()
-rtweet::post_tweet(status = book_status,
-                   token = rbot_token)
-       

@@ -1,8 +1,11 @@
 name: pooptweets
 
 on:
-  schedule:
-    - cron: '0,30 * * * *'  # trigger every 30 minutes
+  #schedule:
+  #  - cron: '0,30 * * * *'  # trigger every 30 minutes
+  push:
+    branches:
+      - main
 
 jobs:
   pooptweets-post:
@@ -28,5 +31,6 @@ jobs:
       - name: Install tidyquant package
         run: Rscript -e 'install.packages("tidyquant", dependencies = TRUE)'
       - name: Install ggrepel package
-        run: Rscript -e 'install.packages("ggrepel", dependencies = TRUE)
+        run: Rscript -e 'install.packages("ggrepel", dependencies = TRUE)'
+      - name: Run the R script
         run: Rscript ottawacov2tweet.R
