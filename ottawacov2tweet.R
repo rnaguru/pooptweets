@@ -97,6 +97,17 @@ save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
 #TWEET it out via pooptweets twitter app --------------------------------------------------------
 library(rtweet)
 
+# Create a token containing your Twitter keys
+rbot_token <- rtweet::create_token(
+  app = "pooptweets",
+  # the name of the Twitter app
+  consumer_key = Sys.getenv("RBOT_TWITTER_API_KEY"),
+  consumer_secret = Sys.getenv("RBOT_TWITTER_API_SECRET"),
+  access_token = Sys.getenv("RBOT_TWITTER_ACCESS_KEY"),
+  access_secret = Sys.getenv("RBOT_TWITTER_ACCESS_SECRET"),
+  set_renv = FALSE
+)
+
 post_tweet(
   status = "test tweet - this tweet will be deleted shortly."
 #  media = ,
