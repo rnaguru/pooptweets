@@ -1,8 +1,8 @@
 library(cowplot)
 library(gghighlight)
 library(tidyverse)
-#library(dplyr)
-#library(tidyquant)
+library(dplyr)
+library(tidyquant)
 library(ggrepel)
 
 ##pull in and convert ALL SARS ww data to average of N1/PMMOV + N2/PMMOV and limit to dates for which there is VOC data
