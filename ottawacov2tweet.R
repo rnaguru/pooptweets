@@ -109,8 +109,8 @@ rbot_token <- rtweet::create_token(
 )
 
 post_tweet(
-  status = "test tweet-this tweet will be deleted shortly.",
-#  media = ,
+  status = "testing automated tweets-ignore this.",
+#  media = ottawacov2ww.png,
 #  media_alt_text = NULL
   token = rbot_token
 )
