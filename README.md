@@ -1,1 +1,1 @@
-# This applicaton will create a tweet bot to disseminate wastewater data on @rnaguru account
+# An application to gather Ottawa wastewater data from PHESD github repo, assemble plots, and tweet the plots @rnaguru whenever there is a new commit.
