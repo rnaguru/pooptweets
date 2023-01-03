@@ -17,10 +17,10 @@ wwopen$roll7d = rollmean(wwopen$N1N2norm, 7, na.pad=TRUE)
 min <- min(wwopen$roll7d, na.rm = TRUE)
 med <- median(wwopen$roll7d, na.rm = TRUE)
 max <- max(wwopen$roll7d, na.rm = TRUE)
-#last data point
+#define last data point
 lastpoint<-tail(wwopen, n=1)
 
-
+#PLOTS -------------------------------------------------------------
 ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 3/10)) +
   # geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = input$N1N2spanslider,color = "#FC4E07",fill = "#FC4E07")+
   geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1.5, show.legend = T)+
@@ -88,13 +88,13 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
   )
 
 
-#arrange and label
+#ARRANGE and LABEL -----------------------------------------------------------------------------
 #dev.new(width = 5, height = 5, unit = "inches")
 plot<-plot_grid(ottawaalltime, ottawapastyear, ottawapast2months,ncol = 1, align = 'vh', axis = 'l',labels = c('A', 'B', 'C'), rel_widths=c(1, 1,1), label_size = 16)
 save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
 
 
-#tweet it out via pooptweets twitter app
+#TWEET it out via pooptweets twitter app --------------------------------------------------------
 library(rtweet)
 
 post_tweet(
