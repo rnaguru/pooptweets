@@ -79,7 +79,7 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
   #geom_label(aes(x=lastpoint$Date, y=lastpoint$N1N2norm, label = lastpoint$Date), color="blue", fill="white", alpha=1/25, size=2, vjust=0.5, hjust=0.5)
   geom_text_repel(
     data = lastpoint, 
-    aes(label=toString(format(Date, "%B %d"))),
+    aes(label= paste('lastest data:',toString(format(Date, "%B %d")))),
     segment.curvature = -0.2,
     box.padding = 1.0,
     nudge_x = 0,
@@ -102,4 +102,20 @@ post_tweet(
 #  media = ,
 #  media_alt_text = NULL
 )
+
+# Create a token containing your Twitter keys
+rbot_token <- rtweet::create_token(
+  app = "pooptweets",
+  # the name of the Twitter app
+  consumer_key = Sys.getenv("RBOT_TWITTER_CONSUMER_API_KEY"),
+  consumer_secret = Sys.getenv("RBOT_TWITTER_CONSUMER_API_SECRET"),
+  access_token = Sys.getenv("RBOT_TWITTER_ACCESS_TOKEN"),
+  access_secret = Sys.getenv("RBOT_TWITTER_ACCESS_TOKEN_SECRET"),
+  set_renv = FALSE
+)
+
+# Example: post a tweet via the API
+# The keys are in your environment thanks to create_token()
+rtweet::post_tweet(status = book_status,
+                   token = rbot_token)
        
