@@ -95,14 +95,25 @@ plot <-plot_grid(ottawaalltime, ottawapastyear, ottawapast2months,ncol = 1, alig
 # define the plot file to tweet
 png <- save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
 
-# Tweet alt-text description
+# Tweet alt-text description (1000 character limit)
 alttext <- paste(
-  "A plot of Ottawa wastewater data."
-  )
+  "Plots of SARS-CoV-2 signal across time in Ottawa, Canada;",
+  "y-axis: Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator;",
+  "x-axis: Date when 24 hour composite sample collected from Ottawa wastewater treatment plant;",
+  "Control lines indicate minimum, median, maximum weekly signal observed across the entire pandemic period;",
+  "Blue polyline represents the weekly average signal;",
+  "Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab;",
+  "Data i/o by @doug_manuel lab;",
+  "Plots and tweet bot by @rnaguru.",
+  sep= "\n")
+nchar(alttext)
 
-# Tweet message
+# Tweet message (280 character limit)
 message <- paste(
-  "This is a tweet test and will be deleted."
+  "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
+  format(lastpoint$Date, "%B %d"), 
+  ". (A) Pandemic overview with past year highlighted, (B) Past year with past 2 months highlighted, (C) past two months with most recent sample highlighted. Polyline =7 day mean normalized signal [:|] automated tweet. [|:] ",
+  sep=""
   )
 nchar(message)
 

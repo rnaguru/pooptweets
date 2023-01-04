@@ -1,11 +1,11 @@
 name: pooptweets
 
 on:
-  #schedule:
-  #  - cron: '0,30 * * * *'  # trigger every 30 minutes
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '45 19 * * *' #trigger at 1945 UTC (30 minutes after PHESD ottawa scheduled workflow) - https://crontab.guru
+#  push:
+#    branches:
+#      - main
 
 jobs:
   pooptweets-post:
