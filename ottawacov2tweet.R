@@ -31,7 +31,7 @@ ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 3/10)) +
         axis.text.x = element_text(angle = 45, vjust=0.9, hjust=0.9),
         plot.title=element_text(hjust=0.01, size=10),
         axis.title.x=element_blank())+
-  labs(title= "entire pandemic")+
+  labs(title= "entire pandemic - Ottawa, Canada")+
   gghighlight(Date >= Sys.Date()-364)+
   ylab("SARS-CoV-2 signal")+
   geom_hline(yintercept = c(min,med,max), color=c("darkgreen", "orange", "darkred"))+
@@ -79,7 +79,7 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
   #geom_label(aes(x=lastpoint$Date, y=lastpoint$N1N2norm, label = lastpoint$Date), color="blue", fill="white", alpha=1/25, size=2, vjust=0.5, hjust=0.5)
   geom_text_repel(
     data = lastpoint, 
-    aes(label= paste('lastest data:',toString(format(Date, "%B %d")))),
+    aes(label= paste('latest data:',toString(format(Date, "%B %d")))),
     segment.curvature = -0.2,
     box.padding = 1.0,
     nudge_x = 0,
