@@ -2,10 +2,10 @@ name: pooptweets
 
 on:
   schedule:
-#    - cron: '45 19 * * 2-5' #trigger at 1945 UTC on Tues/Wed/Thurs/Fri (30 minutes after PHESD ottawa scheduled workflow) - https://crontab.guru
-#  push:
-#    branches:
-#      - main
+    - cron: '45 19 * * 2-5' #trigger at 1945 UTC on Tues/Wed/Thurs/Fri (30 minutes after PHESD ottawa scheduled workflow) - https://crontab.guru
+  push:
+    branches:
+      - main
 
 jobs:
   pooptweets-post:
