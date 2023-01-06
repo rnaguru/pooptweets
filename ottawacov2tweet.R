@@ -17,14 +17,16 @@ wwopen$roll7d = rollmean(wwopen$N1N2norm, 7, na.pad=TRUE)
 min <- min(wwopen$roll7d, na.rm = TRUE)
 med <- median(wwopen$roll7d, na.rm = TRUE)
 max <- max(wwopen$roll7d, na.rm = TRUE)
-#define last data point
+#define last data point, last weekly average, percent of pandemic median
 lastpoint<-tail(wwopen, n=1)
+fourthlast<-tail(wwopen, n=4) %>% head(wwopen, n=1)
+percentofmedian<-round(fourthlast$roll7d / med *100, digits=0)
 
 #PLOTS -------------------------------------------------------------
-ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 3/10)) +
+ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 5/10)) +
   # geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = input$N1N2spanslider,color = "#FC4E07",fill = "#FC4E07")+
-  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1.5, show.legend = T)+
-  geom_point()+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_point(size=0.2, alpha = 3/10)+
   theme_classic()+
   scale_x_date(date_breaks = "3 months" , date_labels = "%b %Y")+
   theme(legend.position = "none",
@@ -34,16 +36,16 @@ ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 3/10)) +
   labs(title= "entire pandemic - Ottawa, Canada")+
   gghighlight(Date >= Sys.Date()-364)+
   ylab("SARS-CoV-2 signal")+
-  geom_hline(yintercept = c(min,med,max), color=c("darkgreen", "orange", "darkred"))+
+  geom_hline(yintercept = c(min,med,max), color=c("darkgreen", "darkorange", "darkred"))+
   geom_label(aes(x=as.Date("2020-04-07"), y=max, label = "pandemic weekly maximum"), color="darkred", fill="white", alpha=1/25, size=2, hjust=0)+
-  geom_label(aes(x=as.Date("2020-04-07"), y=med, label = "pandemic weekly median"), color="orange", fill="white", alpha=1/25, size=2, hjust=0)+
+  geom_label(aes(x=as.Date("2020-04-07"), y=med, label = "pandemic weekly median"), color="darkorange", fill="white", alpha=1/25, size=2, hjust=0)+
   geom_label(aes(x=as.Date("2020-04-07"), y=-.00020, label = "pandemic weekly minimum"), color="darkgreen", fill="white", alpha=1/25, size=2, hjust=0)
 
 
 ottawapastyear <- ggplot(wwopen %>% filter(Date >= Sys.Date()-364), aes(x=Date, y = N1N2norm, alpha = 3/10)) +
   # geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = input$N1N2spanslider,color = "#FC4E07",fill = "#FC4E07")+
-  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1.5, show.legend = T)+
-  geom_point()+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_point(size=1, alpha =3/10)+
   theme_classic()+
   scale_x_date(date_breaks = "month" , date_labels = "%b %Y")+
   theme(legend.position = "none",
@@ -53,9 +55,9 @@ ottawapastyear <- ggplot(wwopen %>% filter(Date >= Sys.Date()-364), aes(x=Date, 
   labs(title= "past year")+
   gghighlight(Date >= Sys.Date()-60)+
   ylab("SARS-CoV-2 signal")+
-  geom_hline(yintercept = c(min,med,max), color=c("darkgreen", "orange", "darkred"))+
+  geom_hline(yintercept = c(min,med,max), color=c("darkgreen", "darkorange", "darkred"))+
   geom_label(aes(x=Sys.Date()-364, y=max, label = "pandemic weekly maximum"), color="darkred", fill="white", alpha=1/25, size=2,hjust=0)+
-  geom_label(aes(x=Sys.Date()-364, y=med, label = "pandemic weekly median"), color="orange", fill="white", alpha=1/25, size=2,hjust=0)+
+  geom_label(aes(x=Sys.Date()-364, y=med, label = "pandemic weekly median"), color="darkorange", fill="white", alpha=1/25, size=2,hjust=0)+
   geom_label(aes(x=Sys.Date()-364, y=-.00020, label = "pandemic weekly minimum"), color="darkgreen", fill="white", alpha=1/25, size=2,hjust=0)
 
 
@@ -72,9 +74,10 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
         axis.title.x=element_blank())+
   labs(title= "past 2 months", caption="data source: https://github.com/Big-Life-Lab/PHESD")+
   ylab("SARS-CoV-2 signal")+
-  geom_hline(yintercept = c(min,med,max), color=c("darkgreen", "orange", "darkred"))+
+  geom_hline(yintercept = c(min,med,max,fourthlast$roll7d), color=c("darkgreen", "darkorange", "darkred", "slateblue"))+
   geom_label(aes(x=Sys.Date()-60, y=max, label = "pandemic weekly maximum"), color="darkred", fill="white", alpha=1/25, size=2,hjust=0)+
-  geom_label(aes(x=Sys.Date()-60, y=med, label = "pandemic weekly median"), color="orange", fill="white", alpha=1/25, size=2,hjust=0)+
+  geom_label(aes(x=Sys.Date()-60, y=med, label = "pandemic weekly median"), color="darkorange", fill="white", alpha=1/25, size=2,hjust=0)+
+  geom_label(aes(x=Sys.Date()-60, y=fourthlast$roll7d, label = paste(percentofmedian, "% of pandemic weekly median", sep="")), color="slateblue", fill="white", alpha=1/25, size=3,hjust=0)+
   geom_label(aes(x=Sys.Date()-60, y=-.00020, label = "pandemic weekly minimum"), color="darkgreen", fill="white", alpha=1/25, size=2,hjust=0)+
   #geom_label(aes(x=lastpoint$Date, y=lastpoint$N1N2norm, label = lastpoint$Date), color="blue", fill="white", alpha=1/25, size=2, vjust=0.5, hjust=0.5)
   geom_text_repel(
