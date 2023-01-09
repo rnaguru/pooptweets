@@ -115,10 +115,9 @@ nchar(alttext)
 message <- paste(
   "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
   format(lastpoint$Date, "%B %d"), 
-  ". (A) Pandemic overview with past year highlighted, (B) Past year with past 2 months highlighted, (C) past two months with most recent sample highlighted. Polyline =7 day mean normalized signal [:|] automated tweet. [|:] ",
+  ". (A) Pandemic overview with past year highlighted, (B) Past year with past 2 months highlighted, (C) past 2 months. Polyline =7 day mean signal. More info and acknowledgements in ALT description.",
   sep=""
   )
-nchar(message)
 
 #TWEET it out via pooptweets twitter app --------------------------------------------------------
 library(rtweet)
