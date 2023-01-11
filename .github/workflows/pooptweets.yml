@@ -3,13 +3,13 @@ name: pooptweets
 on:
   schedule:
     - cron: '45 19 * * 2-5' #trigger at 1945 UTC on Tues/Wed/Thurs/Fri (30 min after PHESD ottawa scheduled workflow) - https://crontab.guru
- # push:
- #   branches:
- #     - main
+  push:
+    branches:
+      - main
 
 jobs:
   pooptweets-post:
-    runs-on: macOS-latest
+    runs-on: macOS-11
     env:
       RBOT_TWITTER_API_KEY: ${{ secrets.RBOT_TWITTER_API_KEY }}
       RBOT_TWITTER_API_SECRET: ${{ secrets.RBOT_TWITTER_API_SECRET }}
