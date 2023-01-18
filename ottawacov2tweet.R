@@ -15,7 +15,7 @@ wwopen <- read.csv("https://raw.githubusercontent.com/Big-Life-Lab/PHESD/main/Wa
 wwopen$roll7d = rollmean(wwopen$N1N2norm, 7, na.pad=TRUE)
 #get min and max values if weekly averages ignoring NA values
 min <- min(wwopen$roll7d, na.rm = TRUE)
-med <- median(wwopen$roll7d, na.rm = TRUE)
+med <- mean(wwopen$roll7d, na.rm = TRUE)
 max <- max(wwopen$roll7d, na.rm = TRUE)
 #define last data point, last weekly average, percent of pandemic median
 lastpoint<-tail(wwopen, n=1)
@@ -38,7 +38,7 @@ ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 5/10)) +
   ylab("SARS-CoV-2 signal")+
   geom_hline(yintercept = c(min,med,max), color=c("darkgreen", "darkorange", "darkred"))+
   geom_label(aes(x=as.Date("2020-04-07"), y=max, label = "pandemic weekly maximum"), color="darkred", fill="white", alpha=1/25, size=2, hjust=0)+
-  geom_label(aes(x=as.Date("2020-04-07"), y=med, label = "pandemic weekly median"), color="darkorange", fill="white", alpha=1/25, size=2, hjust=0)+
+  geom_label(aes(x=as.Date("2020-04-07"), y=med, label = "pandemic weekly average"), color="darkorange", fill="white", alpha=1/25, size=2, hjust=0)+
   geom_label(aes(x=as.Date("2020-04-07"), y=-.00020, label = "pandemic weekly minimum"), color="darkgreen", fill="white", alpha=1/25, size=2, hjust=0)
 
 
@@ -57,7 +57,7 @@ ottawapastyear <- ggplot(wwopen %>% filter(Date >= Sys.Date()-364), aes(x=Date, 
   ylab("SARS-CoV-2 signal")+
   geom_hline(yintercept = c(min,med,max), color=c("darkgreen", "darkorange", "darkred"))+
   geom_label(aes(x=Sys.Date()-364, y=max, label = "pandemic weekly maximum"), color="darkred", fill="white", alpha=1/25, size=2,hjust=0)+
-  geom_label(aes(x=Sys.Date()-364, y=med, label = "pandemic weekly median"), color="darkorange", fill="white", alpha=1/25, size=2,hjust=0)+
+  geom_label(aes(x=Sys.Date()-364, y=med, label = "pandemic weekly average"), color="darkorange", fill="white", alpha=1/25, size=2,hjust=0)+
   geom_label(aes(x=Sys.Date()-364, y=-.00020, label = "pandemic weekly minimum"), color="darkgreen", fill="white", alpha=1/25, size=2,hjust=0)
 
 
@@ -75,21 +75,16 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
   labs(title= "past 2 months", caption="data source: https://github.com/Big-Life-Lab/PHESD")+
   ylab("SARS-CoV-2 signal")+
   geom_hline(yintercept = c(min,med,max,fourthlast$roll7d), color=c("darkgreen", "darkorange", "darkred", "slateblue"))+
+  geom_segment(aes(x= as.Date(lastpoint$Date), xend= as.Date(lastpoint$Date), y=-.00013, yend= lastpoint$N1N2norm), color="black", alpha=0.008)+
   geom_label(aes(x=Sys.Date()-60, y=max, label = "pandemic weekly maximum"), color="darkred", fill="white", alpha=1/25, size=2,hjust=0)+
-  geom_label(aes(x=Sys.Date()-60, y=med, label = "pandemic weekly median"), color="darkorange", fill="white", alpha=1/25, size=2,hjust=0)+
-  geom_label(aes(x=Sys.Date()-60, y=fourthlast$roll7d, label = paste(percentofmedian, "% of pandemic weekly median", sep="")), color="slateblue", fill="white", alpha=1/25, size=3,hjust=0)+
-  geom_label(aes(x=Sys.Date()-60, y=-.00020, label = "pandemic weekly minimum"), color="darkgreen", fill="white", alpha=1/25, size=2,hjust=0)+
-  #geom_label(aes(x=lastpoint$Date, y=lastpoint$N1N2norm, label = lastpoint$Date), color="blue", fill="white", alpha=1/25, size=2, vjust=0.5, hjust=0.5)
-  geom_text_repel(
-    data = lastpoint, 
-    aes(label= paste('latest data:',toString(format(Date, "%B %d")))),
-    segment.curvature = -0.2,
-    box.padding = 1.0,
-    nudge_x = 0,
-    nudge_y = 0.0005,
-    force = 1,
+  geom_label(aes(x=Sys.Date()-60, y=med, label = "pandemic weekly average"), color="darkorange", fill="white", alpha=1/25, size=2,hjust=0)+
+  geom_label(aes(x=Sys.Date()-60, y=fourthlast$roll7d, label = paste(percentofmedian, "% of pandemic average", sep="")), color="slateblue", fill="white", alpha=1/25, size=3.5,hjust=0)+
+  geom_label(aes(x=Sys.Date()-60, y=-.00013, label = "pandemic weekly minimum"), color="darkgreen", fill="white", alpha=1/25, size=2,hjust=0)+
+  geom_label(aes(x=lastpoint$Date, y=-.00013, label= paste('latest data:', toString(format(lastpoint$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
   )
 
+#title <- ggdraw() +
+ # draw_label("Wastewater-derived SARS-COV-2 signal at Ottawa wastewater treatment plant")
 
 #ARRANGE and LABEL -----------------------------------------------------------------------------
 #dev.new(width = 5, height = 5, unit = "inches")
@@ -103,7 +98,7 @@ alttext <- paste(
   "Plots of SARS-CoV-2 signal across time in Ottawa, Canada;",
   "y-axis: Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator;",
   "x-axis: Date when 24 hour composite sample collected from Ottawa wastewater treatment plant;",
-  "Control lines indicate minimum, median, maximum weekly signal observed across the entire pandemic period;",
+  "Control lines indicate minimum, average, maximum weekly signal observed across the entire pandemic period;",
   "Blue polyline represents the weekly average signal;",
   "Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab;",
   "Data i/o by @doug_manuel lab;",
@@ -115,7 +110,7 @@ nchar(alttext)
 message <- paste(
   "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
   format(lastpoint$Date, "%B %d"), 
-  ". (A) Pandemic overview with past year highlighted, (B) Past year with past 2 months highlighted, (C) past two months with most recent sample highlighted. Polyline =7 day mean normalized signal [:|] automated tweet. [|:] ",
+  ". (A) Pandemic overview with past year highlighted, (B) Past year with past 2 months highlighted, (C) past two months with most recent sample highlighted. Polyline =7 day average normalized signal [:|] automated tweet. [|:] ",
   sep=""
   )
 nchar(message)
