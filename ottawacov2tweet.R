@@ -25,7 +25,8 @@ percentofmedian<-round(fourthlast$roll7d / med *100, digits=0)
 #PLOTS -------------------------------------------------------------
 ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 5/10)) +
   # geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = input$N1N2spanslider,color = "#FC4E07",fill = "#FC4E07")+
-  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_line(wwopen, mapping=aes(x=Date, y = roll7d), color="slateblue")+
+  #deprecated tidyquant geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=0.2, alpha = 3/10)+
   theme_classic()+
   scale_x_date(date_breaks = "3 months" , date_labels = "%b %Y")+
@@ -44,7 +45,8 @@ ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 5/10)) +
 
 ottawapastyear <- ggplot(wwopen %>% filter(Date >= Sys.Date()-364), aes(x=Date, y = N1N2norm, alpha = 3/10)) +
   # geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = input$N1N2spanslider,color = "#FC4E07",fill = "#FC4E07")+
-  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_line(wwopen %>% filter(Date >= Sys.Date()-364), mapping=aes(x=Date, y = roll7d), color="slateblue")+
+  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=1, alpha =3/10)+
   theme_classic()+
   scale_x_date(date_breaks = "month" , date_labels = "%b %Y")+
@@ -64,7 +66,8 @@ ottawapastyear <- ggplot(wwopen %>% filter(Date >= Sys.Date()-364), aes(x=Date, 
 
 ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date, y = N1N2norm, alpha = 3/10)) +
   # geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = input$N1N2spanslider,color = "#FC4E07",fill = "#FC4E07")+
-  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1.5, show.legend = T)+
+  geom_line(wwopen %>% filter(Date >= Sys.Date()-60), mapping=aes(x=Date, y = roll7d), color="slateblue", linewidth=1.2)+
+  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1.5, show.legend = T)+
   geom_point()+
   theme_classic()+
   scale_x_date(date_breaks = "week" , date_labels = "%b %d")+
