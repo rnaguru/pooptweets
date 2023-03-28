@@ -36,8 +36,8 @@ jobs:
         run: Rscript -e 'install.packages("tidyverse", dependencies = TRUE)'
       - name: Install dplyr package
         run: Rscript -e 'install.packages("dplyr", dependencies = TRUE)'
-      - name: Install tidyquant package
-        run: Rscript -e 'install.packages("tidyquant", dependencies = TRUE)'
+      - name: Install zoo package
+        run: Rscript -e 'install.packages("zoo", dependencies = TRUE)'
       - name: Install ggrepel package
         run: Rscript -e 'install.packages("ggrepel", dependencies = TRUE)'
       - name: Run the R script
