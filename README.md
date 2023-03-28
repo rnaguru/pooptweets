@@ -18,4 +18,3 @@ In R:
 
 YAML
 * defines env for Github Actions, location of secrets, R packages.
--
