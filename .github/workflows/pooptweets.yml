@@ -17,6 +17,8 @@ jobs:
       RBOT_TWITTER_ACCESS_SECRET: ${{ secrets.RBOT_TWITTER_ACCESS_SECRET }}
     steps:
       - uses: actions/checkout@v2
+      - name: Create cache directory
+        run: mkdir -p ~/.cache/R
       - name: Cache R package dependencies
         uses: actions/cache@v3
         with:
