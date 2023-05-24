@@ -123,7 +123,7 @@ library(rtweet)
 
 # Create a token containing your Twitter keys
 rbot_token <- rtweet::create_token(
-  app = "pooptweets",
+  app = "pooptweet2",
   # the name of the Twitter app
   consumer_key = Sys.getenv("RBOT_TWITTER_API_KEY"),
   consumer_secret = Sys.getenv("RBOT_TWITTER_API_SECRET"),
