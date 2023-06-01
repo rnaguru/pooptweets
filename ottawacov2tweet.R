@@ -113,16 +113,10 @@ nchar(message)
 
 # 2nd Tweet message (280 character limit)
 message2 <- paste(
-  "y-axis: Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator;",
-  "x-axis: Date when 24 hour composite sample collected from Ottawa wastewater treatment plant;",
-  "Control lines indicate minimum, average, maximum weekly signal observed across the entire pandemic period;",
-  "Blue polyline represents the weekly average signal;",
-  "Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab;",
-  "Data i/o by @doug_manuel lab;",
-  "Plots and tweet bot by @rnaguru.",
+  "Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
   sep= "\n"
-  )
-nchar(message)
+)
+nchar(message2)
 
 #TWEET it out via pooptweets twitter app --------------------------------------------------------
 library(rtweet)
