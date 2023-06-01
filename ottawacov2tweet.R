@@ -106,7 +106,7 @@ nchar(alttext)
 message <- paste(
   "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
   format(lastpoint$Date, "%B %d"), 
-  ". (A) Pandemic overview with past year highlighted, (B) Past year with last 2 months highlighted, (C) Past 2 months. Polyline =7 day average normalized signal. Details and acknowledgements in next tweet...",
+  ". (A) Pandemic overview with past year highlighted, (B) Past year with last 2 months highlighted, (C) Past 2 months. Polyline =7 day average normalized signal.",
   sep=""
 )
 nchar(message)
