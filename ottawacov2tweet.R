@@ -99,13 +99,6 @@ png <- save_plot("ottawacov2ww.png", plot=plot,base_height=9,base_width=5)
 # Tweet alt-text description (1000 character limit)
 alttext <- paste(
   "Plots of SARS-CoV-2 signal across time in Ottawa, Canada;",
-  "y-axis: Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator;",
-  "x-axis: Date when 24 hour composite sample collected from Ottawa wastewater treatment plant;",
-  "Control lines indicate minimum, average, maximum weekly signal observed across the entire pandemic period;",
-  "Blue polyline represents the weekly average signal;",
-  "Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab;",
-  "Data i/o by @doug_manuel lab;",
-  "Plots and tweet bot by @rnaguru.",
   sep= "\n")
 nchar(alttext)
 
@@ -113,8 +106,21 @@ nchar(alttext)
 message <- paste(
   "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
   format(lastpoint$Date, "%B %d"), 
-  ". (A) Pandemic overview with past year highlighted, (B) Past year with last 2 months highlighted, (C) Past 2 months. Polyline =7 day average normalized signal. Details and acknowledgements in ALT text.",
+  ". (A) Pandemic overview with past year highlighted, (B) Past year with last 2 months highlighted, (C) Past 2 months. Polyline =7 day average normalized signal. Details and acknowledgements in next tweet...",
   sep=""
+)
+nchar(message)
+
+# 2nd Tweet message (280 character limit)
+message2 <- paste(
+  "y-axis: Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator;",
+  "x-axis: Date when 24 hour composite sample collected from Ottawa wastewater treatment plant;",
+  "Control lines indicate minimum, average, maximum weekly signal observed across the entire pandemic period;",
+  "Blue polyline represents the weekly average signal;",
+  "Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab;",
+  "Data i/o by @doug_manuel lab;",
+  "Plots and tweet bot by @rnaguru.",
+  sep= "\n"
   )
 nchar(message)
 
@@ -132,9 +138,18 @@ rbot_token <- rtweet::create_token(
   set_renv = FALSE
 )
 
-post_tweet(
+firsttweet <- post_tweet(
   status = message,
   media = png,
   media_alt_text = alttext,
   token = rbot_token
 )
+
+reply_id <- ids(firsttweet)
+
+post_tweet(
+  status = message2,
+  token = rbot_token,
+  in_reply_to_status_id = reply_id
+)
+
