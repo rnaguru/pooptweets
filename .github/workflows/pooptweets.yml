@@ -5,7 +5,7 @@ on:
     - cron: '45 19 * * 2-5' #trigger at 1945 UTC on Tues/Wed/Thurs/Fri (30 min after PHESD ottawa scheduled workflow) - https://crontab.guru
   push:
     branches:
-      - main
+      - main 
 
 jobs:
   pooptweets-post:
