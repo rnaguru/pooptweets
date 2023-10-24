@@ -157,7 +157,7 @@ plot_diagnostic_ww <- function (r.estim, caption = NULL)
   
   g.inc = r.estim$inc %>% ggplot2::ggplot(ggplot2::aes(x = date, y = mean)) + 
     #ggplot2::geom_ribbon(ggplot2::aes(ymin = lwr, ymax = upr), alpha = 0.8, fill="slateblue", outline.type = "both") + 
-    ggplot2::geom_line(color="slateblue", linewidth = 1.2, alpha = 8/10) +
+    ggplot2::geom_line(color="darkslategray", linewidth = 1.2, alpha = 8/10) +
     #geom_hline(yintercept = c(min.inc,max.inc), color=c("darkgreen", "darkred"))+
     ggplot2::labs(title = "wastewater-derived \n COVID-19 incidence \n (calibrated to \n BA.2 wave)", y = "new cases/day/million people") + 
     xsc +
@@ -181,7 +181,7 @@ plot_diagnostic_ww <- function (r.estim, caption = NULL)
   g.r = r.estim$R %>% ggplot2::ggplot(ggplot2::aes(x = date, 
                                                    y = mean)) + 
     ggplot2::geom_hline(yintercept = 1, color = "grey50", linetype = "dashed") + 
-    ggplot2::geom_ribbon(ggplot2::aes(ymin = lwr, ymax = upr), fill = "slateblue", alpha = 8/10, outline.type = "both") + 
+    ggplot2::geom_ribbon(ggplot2::aes(ymin = lwr, ymax = upr), fill = "darkslategray", alpha = 8/10, outline.type = "both") + 
     #ggplot2::geom_line(color="slateblue", linewidth = 0.8, alpha = 3/10) + 
     xsc + 
     ggplot2::labs(title = "wastewater-derived \n Effective Reproduction \n Number",
@@ -392,7 +392,7 @@ secondtweet <- post_tweet(
 reply_id <- ids(secondtweet)
 
 post_tweet(
-  status = message2,
+  status = replymessage2,
   token = rbot_token,
   in_reply_to_status_id = reply_id
 )
