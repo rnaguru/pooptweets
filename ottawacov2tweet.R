@@ -5,7 +5,6 @@ library(dplyr)
 library(zoo)
 library(ggrepel)
 library(knitr)
-devtools::install_github('phac-nml-phrsd/ern',force = TRUE)
 library(ern)
 library(ggplot2)
 
