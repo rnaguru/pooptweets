@@ -239,7 +239,7 @@ nchar(alttext)
 message <- paste(
   "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
   format(lastpoint$Date, "%B %d"), 
-  ". Pandemic highlighting past year (A), blue line is weekly average, (B) Past year highlighting last 2 months, (C) Past 2 months, (D) inferred case incidence, (E) inferred Reff. D and E determined with phac-nml-phrsd/ern",
+  ". Pandemic highlighting past year (A), blue line is weekly average; Past year highlighting last 2 months (B); Past 2 months (C), inferred case incidence (D), and Reff (E) determined with github.com/phac-nml-phrsd/ern",
   sep=""
 )
 nchar(message)
