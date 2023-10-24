@@ -4,7 +4,6 @@ library(tidyverse)
 library(dplyr)
 library(zoo)
 library(ggrepel)
-library(knitr)
 library(ern)
 library(ggplot2)
 
@@ -33,6 +32,44 @@ mutate(Date = as.Date(sampleDate, format= "%Y-%m-%d")) %>%select(c(28,29)) %>%
 
 lastpointReff<-tail(ww.conc, n=1)
 
+#CURATE DATA "wwopen2" FOR ALL OTHER VIRUS PLOTS -------------------------------------------------------------
+#create a dataset to be used for the non-COV virus data
+wwopen2 <- wwopen %>%
+  rename(
+    INFA = InfA_copies_per_pep_copies_avg,
+    INFB = InfB_copies_per_pep_copies_avg,
+    RSV  = RSV_copies_per_pep_copies_avg,
+    MPOX = MPOX_copies_per_pep_copies_avg,
+  ) %>%
+  filter(Date >= as.Date("2022-02-01") & Date <= Sys.Date())
+
+#change any instance of "Not tested" to "NA"
+#transform Y values to be more easily read
+xformy <- function(x) ifelse(x != "Not tested", as.numeric(x) * 10^3, x)
+columns_to_transform <- c("INFA", "INFB", "RSV", "MPOX")
+wwopen2 <- wwopen2 %>%
+  mutate(across(all_of(columns_to_transform), ~xformy(.)))
+
+#create 7d rolling mean column
+wwopen2$INFA_roll7d = rollmean(wwopen2$INFA, 7, na.pad=TRUE)
+wwopen2$INFB_roll7d = rollmean(wwopen2$INFB, 7, na.pad=TRUE)
+wwopen2$RSV_roll7d = rollmean(wwopen2$RSV, 7, na.pad=TRUE)
+wwopen2$MPOX_roll7d = rollmean(wwopen2$MPOX, 7, na.pad=TRUE)
+#define last data point, last weekly average, percent of pandemic median
+lastpoint_INFA<-wwopen2 %>%
+  filter(!is.na(INFA), INFA >= 0, INFA != "Not tested") %>%
+  tail(n = 1)
+lastpoint_INFB<-wwopen2 %>%
+  filter(!is.na(INFB), INFB >= 0, INFB != "Not tested") %>%
+  tail(n = 1)
+lastpoint_RSV<-wwopen2 %>%
+  filter(!is.na(RSV), RSV >= 0, RSV != "Not tested") %>%
+  tail(n = 1)
+lastpoint_MPOX <- wwopen2 %>%
+  filter(!is.na(MPOX), MPOX >= 0, MPOX != "Not tested") %>%
+  tail(n = 1)
+fourthlast<-tail(wwopen, n=4) %>% head(wwopen, n=1)
+
 #PLOTS -------------------------------------------------------------
 ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 7/10)) +
   # geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = input$N1N2spanslider,color = "#FC4E07",fill = "#FC4E07")+
@@ -48,7 +85,7 @@ ottawaalltime <- ggplot(wwopen, aes(x=Date, y = N1N2norm, alpha = 7/10)) +
         axis.title.x=element_blank())+
   labs(title= "entire pandemic - Ottawa, Canada")+
   gghighlight(Date >= Sys.Date()-364)+
-  ylab("SARS-CoV-2 signal x10\u00b3")+
+  ylab(bquote('SARS-CoV-2 signal'~x10^-3))+
   geom_hline(yintercept = c(min,med,max), color=c("darkgreen", "darkorange", "darkred"))+
   geom_label(aes(x=as.Date("2020-04-07"), y=max, label = "pandemic weekly maximum"), color="darkred", fill="white", alpha=1/25, size=2.5, hjust=0)+
   geom_label(aes(x=as.Date("2020-04-07"), y=med, label = "pandemic weekly average"), color="darkorange", fill="white", alpha=1/25, size=2.5, hjust=0)+
@@ -69,7 +106,7 @@ ottawapastyear <- ggplot(wwopen %>% filter(Date >= Sys.Date()-364), aes(x=Date, 
         axis.title.x=element_blank())+
   labs(title= "past year")+
   gghighlight(Date >= Sys.Date()-60)+
-  ylab("SARS-CoV-2 signal x10\u00b3")+
+  ylab(bquote('SARS-CoV-2 signal'~x10^-3))+
   geom_hline(yintercept = c(min,med,max,fourthlast$roll7d), color=c("darkgreen", "darkorange", "darkred","slateblue"))+
   geom_label(aes(x=Sys.Date()-260, y=fourthlast$roll7d, label = paste(percentofmedian, "% of pandemic average", sep="")), color="slateblue", fill="white", alpha=1/25, size=3.5,hjust=0)+
   geom_label(aes(x=Sys.Date()-364, y=max, label = "pandemic weekly maximum"), color="darkred", fill="white", alpha=1/25, size=2.5,hjust=0)+
@@ -92,7 +129,7 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
         plot.title=element_text(hjust=0.01, size=10),
         axis.title.x=element_blank())+
   #labs(title= "past 2 months", caption="data source: https://github.com/Big-Life-Lab/PHESD")+
-  ylab("SARS-CoV-2 signal x10\u00b3")+
+  ylab(bquote('SARS-CoV-2 signal'~x10^-3))+
   #geom_hline(yintercept = c(min,med,max,fourthlast$rll7d), color=c("darkgreen", "darkorange", "darkred", "slateblue"))+
   geom_hline(yintercept = c(min,med), color=c("darkgreen", "darkorange"))+
   geom_segment(aes(x= as.Date(lastpoint$Date), xend= as.Date(lastpoint$Date), y=-.1, yend= lastpoint$N1N2norm), color="black", alpha=0.008)+
@@ -208,11 +245,11 @@ message <- paste(
 nchar(message)
 
 # 2nd Tweet message (280 character limit)
-message2 <- paste(
+replymessage <- paste(
   "Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
   sep= "\n"
 )
-nchar(message2)
+nchar(replymessage)
 
 #TWEET it out via pooptweets twitter app --------------------------------------------------------
 library(rtweet)
@@ -236,6 +273,123 @@ firsttweet <- post_tweet(
 )
 
 reply_id <- ids(firsttweet)
+
+post_tweet(
+  status = replymessage,
+  token = rbot_token,
+  in_reply_to_status_id = reply_id
+)
+
+#OTHER VIRUS PLOTS -------------------------------------------------------------
+ottawaalltime_INFA <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFA), alpha = 7/10)) +
+  #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
+  #geom_line(wwopen, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
+  #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
+  theme_classic()+
+  scale_x_date(date_breaks = "2 months" , date_labels = "%b %Y")+
+  theme(legend.position = "none",
+        axis.text.x = element_blank(),
+        plot.title = element_text(hjust = 0.01, size = 8, margin = margin(b = -10)),
+        axis.title.x=element_blank())+
+  labs(title= "Influenza A - Ottawa, Canada")+
+  ylab(bquote('IAV signal'~x10^-3))+
+  geom_label(aes(x=lastpoint_INFA$Date, y=-0.02, label= paste('latest data:', toString(format(lastpoint_INFA$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
+  )
+
+ottawaalltime_RSV <- ggplot(wwopen2, aes(x=Date, y = as.numeric(RSV), alpha = 7/10)) +
+  #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
+  #geom_line(wwopen, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
+  #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
+  theme_classic()+
+  scale_x_date(date_breaks = "2 months" , date_labels = "%b %Y")+
+  theme(legend.position = "none",
+        axis.text.x = element_blank(),
+        plot.title = element_text(hjust = 0.01, size = 8, margin = margin(b = -10)),
+        axis.title.x=element_blank())+
+  labs(title= "Respiratory Syncytial Virus - Ottawa, Canada")+
+  ylab(bquote('RSV signal'~x10^-3))+
+  geom_label(aes(x=lastpoint_RSV$Date, y=-0.04, label= paste('latest data:', toString(format(lastpoint_RSV$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
+  )
+
+ottawaalltime_INFB <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFB), alpha = 7/10)) +
+  #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
+  #geom_line(wwopen, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
+  #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
+  theme_classic()+
+  scale_x_date(date_breaks = "2 months" , date_labels = "%b %Y")+
+  theme(legend.position = "none",
+        axis.text.x = element_blank(),
+        plot.title = element_text(hjust = 0.01, size = 8, margin = margin(b = -10)),
+        axis.title.x=element_blank(),
+        plot.margin = margin(0, 0, 0, 0))+
+  labs(title= "Influenza B - Ottawa, Canada")+
+  ylab(bquote('IBV signal'~x10^-3))+
+  geom_label(aes(x=lastpoint_INFB$Date, y=-0.0003, label= paste('latest data:', toString(format(lastpoint_INFB$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
+  )
+
+ottawaalltime_MPOX <- ggplot(wwopen2, aes(x=Date, y = as.numeric(MPOX), alpha = 7/10)) +
+  #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
+  #geom_line(wwopen, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
+  #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
+  theme_classic()+
+  scale_x_date(date_breaks = "2 months" , date_labels = "%b %Y")+
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, vjust=0.9, hjust=0.9),
+        plot.title = element_text(hjust = 0.01, size = 8, margin = margin(b = -10)),
+        axis.title.x=element_blank())+
+  labs(title= "MPOX Virus - Ottawa, Canada", caption="data source: https://github.com/Big-Life-Lab/PHESD")+
+  ylab(bquote('MPOX signal'~x10^-3))+
+  geom_label(aes(x=lastpoint_MPOX$Date, y=-0.005, label= paste('latest data:', toString(format(lastpoint_MPOX$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
+  ) 
+
+#ARRANGE and LABEL -----------------------------------------------------------------------------
+#dev.new(width = 5, height = 5, unit = "inches")
+plot2 <-plot_grid(ottawaalltime_INFA, NULL, ottawaalltime_RSV, NULL, ottawaalltime_INFB, NULL, ottawaalltime_MPOX,ncol = 1, align = 'vh', axis = 'l',labels = c('A', '1', 'B', '2', 'C', '3', 'D'), rel_widths = c(1, 1, 1, 1, 1, 1, 1), rel_heights = c(1,-0.3,1,-0.3,1,-0.3,1), label_size = 16)
+
+# define the plot file to tweet
+png2 <- save_plot("ottawavirusww.png", plot=plot2,base_height=8,base_width=5)
+
+# Tweet alt-text description (1000 character limit)
+alttext2 <- paste(
+  "Plots of IAV, RSV, IBV, MPOX wastewater signal across time in Ottawa, Canada;",
+  sep= "\n")
+nchar(alttext)
+
+# Tweet message (280 character limit)
+message2 <- paste(
+  "#Ottawa virus wastewater trends as of: ", 
+  format(lastpoint$Date, "%B %d"), 
+  ". Polyline = 7 day average normalized signal.",
+  sep=""
+)
+nchar(message)
+
+# 2nd Tweet message (280 character limit)
+replymessage2 <- paste(
+  "Average of genetic markers for each viral target normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
+  sep= "\n"
+)
+nchar(replymessage2)
+
+#TWEET it out via pooptweets twitter app --------------------------------------------------------
+library(rtweet)
+
+secondtweet <- post_tweet(
+  status = message2,
+  media = png2,
+  media_alt_text = alttext2,
+  token = rbot_token
+)
+
+reply_id <- ids(secondtweet)
 
 post_tweet(
   status = message2,
