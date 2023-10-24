@@ -32,5 +32,5 @@ jobs:
         run: |
           Rscript -e 'install.packages(c("rtweet", "cowplot", "gghighlight", "tidyverse", "dplyr", "zoo", "ggrepel", "knitr", "ggplot2"), dependencies = TRUE)'
           Rscript -e 'remotes::install_github("phac-nml-phrsd/ern")'
-    - name: Run the R script
+      - name: Run the R script
         run: Rscript ottawacov2tweet.R
