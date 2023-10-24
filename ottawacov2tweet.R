@@ -1,6 +1,7 @@
 library(cowplot)
 library(gghighlight)
 library(tidyverse)
+library(tidyquant)
 library(dplyr)
 library(zoo)
 library(ggrepel)
@@ -51,10 +52,10 @@ wwopen2 <- wwopen2 %>%
   mutate(across(all_of(columns_to_transform), ~xformy(.)))
 
 #create 7d rolling mean column
-wwopen2$INFA_roll7d = rollmean(wwopen2$INFA, 7, na.pad=TRUE)
-wwopen2$INFB_roll7d = rollmean(wwopen2$INFB, 7, na.pad=TRUE)
-wwopen2$RSV_roll7d = rollmean(wwopen2$RSV, 7, na.pad=TRUE)
-wwopen2$MPOX_roll7d = rollmean(wwopen2$MPOX, 7, na.pad=TRUE)
+#wwopen2$INFA_roll7d = rollmean(as.numeric(wwopen2$INFA), k=3, na.pad=TRUE, align = "right", min_obs = 1)
+#wwopen2$INFB_roll7d = rollmean(as.numeric(wwopen2$INFB), 7, na.pad=TRUE, align = "right", min_obs = 1)
+#wwopen2$RSV_roll7d = rollmean(as.numeric(wwopen2$RSV), 7, na.pad=TRUE, align = "right", min_obs = 1)
+#wwopen2$MPOX_roll7d = rollmean(as.numeric(wwopen2$MPOX), 7, na.pad=TRUE, align = "right", min_obs = 1)
 #define last data point, last weekly average, percent of pandemic median
 lastpoint_INFA<-wwopen2 %>%
   filter(!is.na(INFA), INFA >= 0, INFA != "Not tested") %>%
@@ -283,8 +284,8 @@ post_tweet(
 #OTHER VIRUS PLOTS -------------------------------------------------------------
 ottawaalltime_INFA <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFA), alpha = 7/10)) +
   #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
-  geom_line(wwopen2, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
-  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  #geom_line(wwopen2, mapping=aes(x=Date, y = as.numeric(INFA_roll7d)), color="slateblue")+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
   #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
   theme_classic()+
@@ -300,8 +301,8 @@ ottawaalltime_INFA <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFA), alpha = 
 
 ottawaalltime_RSV <- ggplot(wwopen2, aes(x=Date, y = as.numeric(RSV), alpha = 7/10)) +
   #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
-  geom_line(wwopen2, mapping=aes(x=Date, y = RSV_roll7d, na.rm = TRUE), color="slateblue")+
-  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  #geom_line(wwopen2, mapping=aes(x=Date, y = RSV_roll7d, na.rm = TRUE), color="slateblue")+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
   #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
   theme_classic()+
@@ -317,8 +318,8 @@ ottawaalltime_RSV <- ggplot(wwopen2, aes(x=Date, y = as.numeric(RSV), alpha = 7/
 
 ottawaalltime_INFB <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFB), alpha = 7/10)) +
   #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
-  geom_line(wwopen2, mapping=aes(x=Date, y = INFB_roll7d, na.rm = TRUE), color="slateblue")+
-  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  #geom_line(wwopen2, mapping=aes(x=Date, y = INFB_roll7d, na.rm = TRUE), color="slateblue")+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
   #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
   theme_classic()+
@@ -335,8 +336,8 @@ ottawaalltime_INFB <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFB), alpha = 
 
 ottawaalltime_MPOX <- ggplot(wwopen2, aes(x=Date, y = as.numeric(MPOX), alpha = 7/10)) +
   #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
-  geom_line(wwopen2, mapping=aes(x=Date, y = MPOX_roll7d, na.rm = TRUE), color="slateblue")+
-  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  #geom_line(wwopen2, mapping=aes(x=Date, y = MPOX_roll7d, na.rm = TRUE), color="slateblue")+
+  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
   #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
   theme_classic()+
