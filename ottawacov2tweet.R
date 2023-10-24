@@ -283,8 +283,8 @@ post_tweet(
 #OTHER VIRUS PLOTS -------------------------------------------------------------
 ottawaalltime_INFA <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFA), alpha = 7/10)) +
   #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
-  #geom_line(wwopen, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
-  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_line(wwopen2, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
+  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
   #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
   theme_classic()+
@@ -293,15 +293,15 @@ ottawaalltime_INFA <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFA), alpha = 
         axis.text.x = element_blank(),
         plot.title = element_text(hjust = 0.01, size = 8, margin = margin(b = -10)),
         axis.title.x=element_blank())+
-  labs(title= "Influenza A - Ottawa, Canada")+
+  labs(title= "Influenza A virus RNA - Ottawa, Canada")+
   ylab(bquote('IAV signal'~x10^-3))+
   geom_label(aes(x=lastpoint_INFA$Date, y=-0.02, label= paste('latest data:', toString(format(lastpoint_INFA$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
   )
 
 ottawaalltime_RSV <- ggplot(wwopen2, aes(x=Date, y = as.numeric(RSV), alpha = 7/10)) +
   #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
-  #geom_line(wwopen, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
-  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_line(wwopen2, mapping=aes(x=Date, y = RSV_roll7d, na.rm = TRUE), color="slateblue")+
+  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
   #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
   theme_classic()+
@@ -310,15 +310,15 @@ ottawaalltime_RSV <- ggplot(wwopen2, aes(x=Date, y = as.numeric(RSV), alpha = 7/
         axis.text.x = element_blank(),
         plot.title = element_text(hjust = 0.01, size = 8, margin = margin(b = -10)),
         axis.title.x=element_blank())+
-  labs(title= "Respiratory Syncytial Virus - Ottawa, Canada")+
+  labs(title= "Respiratory Syncytial Virus RNA - Ottawa, Canada")+
   ylab(bquote('RSV signal'~x10^-3))+
   geom_label(aes(x=lastpoint_RSV$Date, y=-0.04, label= paste('latest data:', toString(format(lastpoint_RSV$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
   )
 
 ottawaalltime_INFB <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFB), alpha = 7/10)) +
   #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
-  #geom_line(wwopen, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
-  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_line(wwopen2, mapping=aes(x=Date, y = INFB_roll7d, na.rm = TRUE), color="slateblue")+
+  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
   #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
   theme_classic()+
@@ -328,15 +328,15 @@ ottawaalltime_INFB <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFB), alpha = 
         plot.title = element_text(hjust = 0.01, size = 8, margin = margin(b = -10)),
         axis.title.x=element_blank(),
         plot.margin = margin(0, 0, 0, 0))+
-  labs(title= "Influenza B - Ottawa, Canada")+
+  labs(title= "Influenza B virus RNA - Ottawa, Canada")+
   ylab(bquote('IBV signal'~x10^-3))+
   geom_label(aes(x=lastpoint_INFB$Date, y=-0.0003, label= paste('latest data:', toString(format(lastpoint_INFB$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
   )
 
 ottawaalltime_MPOX <- ggplot(wwopen2, aes(x=Date, y = as.numeric(MPOX), alpha = 7/10)) +
   #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
-  #geom_line(wwopen, mapping=aes(x=Date, y = INFA_roll7d, na.rm = TRUE), color="slateblue")+
-  geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
+  geom_line(wwopen2, mapping=aes(x=Date, y = MPOX_roll7d, na.rm = TRUE), color="slateblue")+
+  #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1, show.legend = T)+
   geom_point(size=1, alpha = 1/10, na.rm = TRUE)+
   #geom_point(aes(x=as.Date(lastpoint_INFA$Date), as.numeric(lastpoint_INFA$INFA)),size=0.2, alpha = 1/10, color= "blue")+
   theme_classic()+
@@ -345,7 +345,7 @@ ottawaalltime_MPOX <- ggplot(wwopen2, aes(x=Date, y = as.numeric(MPOX), alpha = 
         axis.text.x = element_text(angle = 45, vjust=0.9, hjust=0.9),
         plot.title = element_text(hjust = 0.01, size = 8, margin = margin(b = -10)),
         axis.title.x=element_blank())+
-  labs(title= "MPOX Virus - Ottawa, Canada", caption="data source: https://github.com/Big-Life-Lab/PHESD")+
+  labs(title= "MPOX Virus DNA - Ottawa, Canada", caption="data source: https://github.com/Big-Life-Lab/PHESD")+
   ylab(bquote('MPOX signal'~x10^-3))+
   geom_label(aes(x=lastpoint_MPOX$Date, y=-0.005, label= paste('latest data:', toString(format(lastpoint_MPOX$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
   ) 
