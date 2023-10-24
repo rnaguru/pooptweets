@@ -366,11 +366,11 @@ nchar(alttext)
 # Tweet message (280 character limit)
 message2 <- paste(
   "#Ottawa virus wastewater trends as of: ", 
-  format(lastpoint$Date, "%B %d"), 
+  format(lastpoint_INFA$Date, "%B %d"), 
   ". Polyline = 7 day average normalized signal.",
   sep=""
 )
-nchar(message)
+nchar(message2)
 
 # 2nd Tweet message (280 character limit)
 replymessage2 <- paste(
@@ -379,9 +379,7 @@ replymessage2 <- paste(
 )
 nchar(replymessage2)
 
-#TWEET it out via pooptweets twitter app --------------------------------------------------------
-library(rtweet)
-
+#TWEET out 2nd post via pooptweets twitter app --------------------------------------------------------
 secondtweet <- post_tweet(
   status = message2,
   media = png2,
@@ -389,10 +387,10 @@ secondtweet <- post_tweet(
   token = rbot_token
 )
 
-reply_id <- ids(secondtweet)
+reply_id2 <- ids(secondtweet)
 
 post_tweet(
   status = replymessage2,
   token = rbot_token,
-  in_reply_to_status_id = reply_id
+  in_reply_to_status_id = reply_id2
 )
