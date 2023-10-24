@@ -15,6 +15,7 @@ jobs:
       RBOT_TWITTER_API_SECRET: ${{ secrets.RBOT_TWITTER_API_SECRET }}
       RBOT_TWITTER_ACCESS_KEY: ${{ secrets.RBOT_TWITTER_ACCESS_KEY }}
       RBOT_TWITTER_ACCESS_SECRET: ${{ secrets.RBOT_TWITTER_ACCESS_SECRET }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }} #needed for remotes access
     steps:
       - uses: actions/checkout@v2
       - name: Create cache directory
