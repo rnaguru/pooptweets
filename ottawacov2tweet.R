@@ -137,7 +137,7 @@ ottawapast2months <- ggplot(wwopen %>% filter(Date >= Sys.Date()-60), aes(x=Date
   #geom_label(aes(x=Sys.Date()-60, y=med, label = "pandemic weekly average"), color="darkorange", fill="white", alpha=1/25, size=2,hjust=0)+
   #geom_label(aes(x=Sys.Date()-60, y=fourthlast$roll7d, label = paste(percentofmedian, "% of \n pandemic average", sep="")), color="slateblue", fill="white", alpha=1/50, size=3,hjust=0)+
   #geom_label(aes(x=Sys.Date()-60, y=-.00013, label = "pandemic weekly minimum"), color="darkgreen", fill="white", alpha=1/25, size=2,hjust=0)+
-  geom_label(aes(x=lastpoint$Date, y=-.1, label= paste('latest:', toString(format(lastpoint$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=3, vjust=0.5, hjust=0.95, label.size=0
+  geom_label(aes(x=lastpoint$Date, y=-.1, label= paste('latest:', toString(format(lastpoint$Date, "%b %d")))), color="slategrey", fill="white", alpha=1/25, size=3, vjust=0.5, hjust=0.95, label.size=0
   )
 
 #title <- ggdraw() +
@@ -230,7 +230,7 @@ cumulative_incidence_last60day <- sum(incidence_last60days$mean)
 percent_infected_last60day <- signif((cumulative_incidence_last60day / 1000000) * 100, digits = 2) #assumes 1M captured in Ottawa
 
 # add to incidence plot
-g.inc_plot <- g.inc_plot + annotate("text", x = Sys.Date() -30, y = 6000, size = 2.4, label = paste("An estimated \n",percent_infected_last60day,"% of Ottawans \n have been infected in \n the past 2 months."))
+g.inc_plot <- g.inc_plot + annotate("text", x = Sys.Date() -30, y = 2000, size = 2.4, label = paste("An estimated \n",percent_infected_last60day,"% of Ottawans \n have been infected in \n the past 2 months."))
 
 #ARRANGE and LABEL -----------------------------------------------------------------------------
 
