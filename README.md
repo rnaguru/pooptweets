@@ -60,6 +60,19 @@ incidence_last60days <- plotReff$g.inc$data %>%
 cumulative_incidence_last60day <- sum(incidence_last60days$mean) #sum daily incidence over last 60 days
 percent_infected_last60day <- signif((cumulative_incidence_last60day / 1000000) * 100, digits = 2) #calculate percent infected assuming 1M captured in Ottawa
 ```
+> [!IMPORTANT]
+> The estimate_R_ww function defines scaling factor (you must calibrate incidence based on a known clinical benchmark), smoothing parameters, iterations of model. In this case, the estimated peak daily cases during the BA.2 wave in Ottawa in Spring 2022 based on estimated daily cases in the province of Ontario (https://www.cbc.ca/news/canada/toronto/wastewater-data-ontario-1.6410892)
+```
+estimate_R_ww(
+  ww.conc,
+  dist.fec,
+  dist.gi,
+  scaling.factor = 5500, #adjusted based on 10^3 N1N2norm transformation
+  prm.smooth = list(window = 14, align = "center", method = "loess", span = 0.1),
+  prm.R = list(iter = 10, CI = 0.999, window = 14, config.EpiEstim = NULL),
+  silent = FALSE,
+  RL.max.iter = 9
+```
 
 > [!CAUTION]
-> The Reff and incidence curbes are generated based on the entire pandemic period, but only the last two months are shown via the tweet.
+> The Reff and incidence curves are generated based on the entire pandemic period, but only the last two months are shown via the tweet.
