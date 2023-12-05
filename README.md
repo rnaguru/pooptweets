@@ -60,3 +60,6 @@ incidence_last60days <- plotReff$g.inc$data %>%
 cumulative_incidence_last60day <- sum(incidence_last60days$mean) #sum daily incidence over last 60 days
 percent_infected_last60day <- signif((cumulative_incidence_last60day / 1000000) * 100, digits = 2) #calculate percent infected assuming 1M captured in Ottawa
 ```
+
+> [!CAUTION]
+> The Reff and incidence curbes are generated based on the entire pandemic period, but only the last two months are shown via the tweet.
