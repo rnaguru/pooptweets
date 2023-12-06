@@ -232,6 +232,9 @@ percent_infected_last60day <- signif((cumulative_incidence_last60day / 1000000) 
 # add to incidence plot
 g.inc_plot <- g.inc_plot + annotate("text", x = Sys.Date() -30, y = 2000, size = 2.4, label = paste("An estimated \n",percent_infected_last60day,"% of Ottawans \n have been infected in \n the past 2 months."))
 
+#limit Reff y-axis
+g.r_plot <- g.r_plot + ylim(0.5,1.5)
+
 #ARRANGE and LABEL -----------------------------------------------------------------------------
 
 bottomrow <- plot_grid(ottawapast2months, g.inc_plot, g.r_plot, ncol=3, align = 'h', labels = c('C', 'D', 'E'),label_size = 16)
