@@ -309,8 +309,13 @@ ottawaalltime_INFA <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFA), alpha = 
         axis.title.x=element_blank())+
   labs(title= "Influenza A virus RNA - Ottawa, Canada")+
   ylab(bquote('IAV signal'~x10^-3))+
-  geom_label(aes(x=lastpoint_INFA$Date, y=-0.02, label= paste('latest data:', toString(format(lastpoint_INFA$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
+  geom_label(aes(x=lastpoint_INFA$Date, y=-0.04, label= paste('latest data:', toString(format(lastpoint_INFA$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
+  )+
+  #limit y-axis and add comment to plot to deal with an outlier on decmeber 7, 2023
+  ylim(-0.04,0.3)+
+  annotate("text", x = Sys.Date() -250, y = 0.25, size = 2.2, color="darkblue", label = paste("To improve visual clarity, a single-day, high-signal outlier \n reported December 7, 2023 has been removed from this plot. \n The weekly average (blue line) still includes this outlier.")
   )
+
 
 ottawaalltime_RSV <- ggplot(wwopen2, aes(x=Date, y = as.numeric(RSV), alpha = 7/10)) +
   #geom_smooth(method = "loess", se = TRUE, show.legend = FALSE, span = 0.2, color= "lightpink", fill = "lightpink", linewidth = 0.1, alpha = 4/10)+
