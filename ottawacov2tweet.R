@@ -10,7 +10,7 @@ library(ggplot2)
 
 #CURATE DATA "wwopen" FOR COV2 PLOTS -------------------------------------------------------------
 ##pull in and convert ALL SARS ww data to average of N1/PMMOV + N2/PMMOV and limit to dates for which there is VOC data
-wwopen <- read.csv("https://raw.githubusercontent.com/Big-Life-Lab/PHESD/main/Wastewater/Ottawa/Data/wastewater_virus.csv") %>%
+wwopen <- read.csv("https://raw.githubusercontent.com/Delatolla-lab/PHESD/main/Wastewater/Ottawa/Data/wastewater_virus.csv") %>%
   mutate(Date = as.Date(sampleDate, format= "%Y-%m-%d")) %>%
   filter(Date >= as.Date("2020-04-07") & Date <= Sys.Date()) %>%
   mutate(N1N2norm = ((covN1_nPMMoV_meanNr + covN2_nPMMoV_meanNr)/2)*10^3) #transform to *10^-3 to make it easier to read y-axis
@@ -185,7 +185,7 @@ plot_diagnostic_ww <- function (r.estim, caption = NULL)
     #ggplot2::geom_line(color="slateblue", linewidth = 0.8, alpha = 3/10) + 
     xsc + 
     ggplot2::labs(title = "wastewater-derived \n Effective Reproduction \n Number",
-                  y = expression(R[e]), caption="data source: https://github.com/Big-Life-Lab/PHESD"
+                  y = expression(R[e]), caption="data source: https://github.com/Delatolla-lab/PHESD"
     ) +
     theme_classic() +
     theme(
