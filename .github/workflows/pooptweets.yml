@@ -7,7 +7,7 @@ on:
 
 jobs:
   pooptweets-post:
-    runs-on: macOS-11
+    runs-on: macOS-latest
     env:
       RBOT_TWITTER_API_KEY: ${{ secrets.RBOT_TWITTER_API_KEY }}
       RBOT_TWITTER_API_SECRET: ${{ secrets.RBOT_TWITTER_API_SECRET }}
