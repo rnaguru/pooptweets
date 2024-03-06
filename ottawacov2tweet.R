@@ -121,6 +121,7 @@ ottawapastyear <- ggplot(wwopen %>% filter(Date >= Sys.Date()-364), aes(x=Date, 
   #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1.5, show.legend = T)+
   geom_point(size=1, alpha =3/10)+
   theme_classic()+
+  ylim(NA,2)
   scale_x_date(date_breaks = "2 weeks" , date_labels = "%b %d")+
   ggplot2::labs(title = "past 2 months"
   ) +
@@ -233,7 +234,7 @@ percent_infected_last60day <- signif((cumulative_incidence_last60day / 1000000) 
 g.inc_plot <- g.inc_plot + annotate("text", x = Sys.Date() -30, y = 2000, size = 2.4, label = paste("An estimated \n",percent_infected_last60day,"% of Ottawans \n have been infected in \n the past 2 months."))
 
 #limit Reff y-axis
-g.r_plot <- g.r_plot + ylim(0.5,1.5)
+g.r_plot <- g.r_plot + ylim(0.1,1.5)
 
 #ARRANGE and LABEL -----------------------------------------------------------------------------
 
