@@ -121,7 +121,7 @@ ottawapastyear <- ggplot(wwopen %>% filter(Date >= Sys.Date()-364), aes(x=Date, 
   #geom_ma(ma_fun = SMA, n=7, linetype= 1, size=1.5, show.legend = T)+
   geom_point(size=1, alpha =3/10)+
   theme_classic()+
-  ylim(NA,2)
+  ylim(NA,2)+
   scale_x_date(date_breaks = "2 weeks" , date_labels = "%b %d")+
   ggplot2::labs(title = "past 2 months"
   ) +
