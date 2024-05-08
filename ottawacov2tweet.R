@@ -280,7 +280,7 @@ rbot_token <- rtweet::create_token(
   set_renv = FALSE
 )
 
-firsttweet <- post_tweet(
+firsttweet <- tweet_post(
   status = message,
   media = png,
   media_alt_text = alttext,
@@ -289,7 +289,7 @@ firsttweet <- post_tweet(
 
 reply_id <- ids(firsttweet)
 
-post_tweet(
+tweet_post(
   status = replymessage,
   token = rbot_token,
   in_reply_to_status_id = reply_id
@@ -400,7 +400,7 @@ replymessage2 <- paste(
 nchar(replymessage2)
 
 #TWEET out 2nd post via pooptweets twitter app --------------------------------------------------------
-secondtweet <- post_tweet(
+secondtweet <- tweet_post(
   status = message2,
   media = png2,
   media_alt_text = alttext2,
@@ -409,7 +409,7 @@ secondtweet <- post_tweet(
 
 reply_id2 <- ids(secondtweet)
 
-post_tweet(
+tweet_post(
   status = replymessage2,
   token = rbot_token,
   in_reply_to_status_id = reply_id2
