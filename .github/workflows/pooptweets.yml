@@ -30,6 +30,9 @@ jobs:
     - name: Compare commits
       id: compare_commits
       run: |
+        if [ "${{ steps.load_previous_commit.outputs.prev_commit }}" == "none" ]; then
+          echo "No previous commit found. Assuming first run." 
+          echo "updated=true" >> $GITHUB_OUTPUT
         if [ "${{ steps.get_latest_commit.outputs.commit }}" != "${{ steps.load_previous_commit.outputs.prev_commit }}" ]; then
           echo "updated=true" >> $GITHUB_OUTPUT
         else
