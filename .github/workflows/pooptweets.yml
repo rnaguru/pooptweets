@@ -27,6 +27,15 @@ jobs:
           echo "prev_commit=none" >> $GITHUB_OUTPUT
         fi
 
+     - name: Check if .prev_commit file exists
+      run: |
+        if [ -f .prev_commit ]; then 
+          echo ".prev_commit file exists. Contents:"
+          cat .prev_commit
+        else
+          echo ".prev_commit file does not exist."
+        fi
+
     - name: Compare commits (Handle first run)
       id: compare_commits
       run: |
