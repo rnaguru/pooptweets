@@ -26,11 +26,11 @@ jobs:
         else
           echo "::set-output name=prev_commit::none"
         fi
-        
+
     - name: Compare commits
       id: compare_commits
       run: |
-         if [ "${{ steps.get_latest_commit.outputs.commit }}" != "${{ steps.load_previous_commit.outputs.prev_commit }}" ]; then
+        if [ "${{ steps.get_latest_commit.outputs.commit }}" != "${{ steps.load_previous_commit.outputs.prev_commit }}" ]; then
           echo "::set-output name=updated::true"
         else
           echo "::set-output name=updated::false"
