@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  updatecheck
+  check-for-update:
     runs-on: macOS-latest
     steps:
     - name: check PHESD repo
