@@ -16,24 +16,24 @@ jobs:
 
     - name: Fetch latest commit hash
       id: get_latest_commit
-      run: echo "::set-output name=commit::$(git rev-parse HEAD)"
+      run: echo "commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
     - name: Load previous commit hash from file (if it exists)
       id: load_previous_commit
       run: |
         if [ -f .prev_commit ]; then 
-          echo "::set-output name=prev_commit::$(cat .prev_commit)"
+          echo "prev_commit=$(cat .prev_commit)" >> $GITHUB_OUTPUT
         else
-          echo "::set-output name=prev_commit::none"
+          echo "prev_commit=none" >> $GITHUB_OUTPUT
         fi
 
     - name: Compare commits
       id: compare_commits
       run: |
         if [ "${{ steps.get_latest_commit.outputs.commit }}" != "${{ steps.load_previous_commit.outputs.prev_commit }}" ]; then
-          echo "::set-output name=updated::true"
+          echo "updated=true" >> $GITHUB_OUTPUT
         else
-          echo "::set-output name=updated::false"
+          echo "updated=false" >> $GITHUB_OUTPUT
         fi
         
     - name: Save latest commit hash to file
