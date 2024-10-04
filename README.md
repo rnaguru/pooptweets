@@ -1,10 +1,10 @@
-[![pooptweets](https://github.com/rnaguru/pooptweets/actions/workflows/pooptweets.yml/badge.svg?event=schedule)](https://github.com/rnaguru/pooptweets/actions/workflows/pooptweets.yml)
 ### An application to gather Ottawa wastewater data from PHESD github repo, assemble plots, and tweet the plots @rnaguru whenever there is a new commit.
 
 **Overview of Pipeline:** 
 
 
 * YAML file `pooptweets.yml` defines env for Github Actions, location of secrets, R packages.
+* github action checks for updates to public PHESD repo every day. If new commit, it will proceed with plotting new data. 
 * In `ottawacov2tweet.R` pull Ottawa daily N1/PMMoV and N2/PMMoV, normalized copies from [PHESD](https://raw.githubusercontent.com/Big-Life-Lab/PHESD/main/Wastewater/Ottawa/Data/wastewater_virus.csv);
 * compute average normalized copies [(N1+N2)/PMMoV];
 * compute 7d rolling mean across pandemic;
