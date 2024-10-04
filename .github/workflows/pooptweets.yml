@@ -6,59 +6,55 @@ on:
   workflow_dispatch:
 
 jobs:
-  #check-for-update:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #  - name: Check PHESD repo
-  #    uses: actions/checkout@v2
-  #    with: 
-  #      repository: 'Delatolla-lab/PHESD'  # Public PHED repo
+  check-for-update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check PHESD repo
+      uses: actions/checkout@v2
+      with: 
+        repository: 'Delatolla-lab/PHESD'  # Public PHED repo
 
- #   - name: Fetch latest commit hash
- #     id: get_latest_commit
- #     run: echo "commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+    - name: Fetch latest commit hash
+      id: get_latest_commit
+      run: echo "commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
-  #  - name: Load previous commit hash from file (if it exists)
-  #    id: load_previous_commit
-  #    run: |
-  #      if [ -f .prev_commit ]; then 
-  #        echo "prev_commit=$(cat .prev_commit)" >> $GITHUB_OUTPUT
-  #      else
-  #        echo "prev_commit=none" >> $GITHUB_OUTPUT
-  #      fi
+    - name: Load previous commit hash from file (if it exists)
+      id: load_previous_commit
+      run: |
+        if [ -f .prev_commit ]; then 
+          echo "prev_commit=$(cat .prev_commit)" >> $GITHUB_OUTPUT
+        else
+          echo "prev_commit=none" >> $GITHUB_OUTPUT
+        fi
 
-   # - name: Check if .prev_commit file exists
-   #   run: |
-   #     if [ -f .prev_commit ]; then 
-   #       echo ".prev_commit file exists. Contents:"
-   #       cat .prev_commit
-   #     else
-   #       echo ".prev_commit file does not exist."
-   #     fi
+    - name: Check if .prev_commit file exists
+      run: |
+        if [ -f .prev_commit ]; then 
+          echo ".prev_commit file exists. Contents:"
+          cat .prev_commit
+        else
+          echo ".prev_commit file does not exist."
+        fi
 
-    #- name: Compare commits (Handle first run)
-    #  id: compare_commits
-    #  run: |
-    #    echo "Previous commit: ${{ steps.load_previous_commit.outputs.prev_commit }}"
-    #    echo "Latest commit: ${{ steps.get_latest_commit.outputs.commit }}"
-
-      #  if [ "${{ steps.load_previous_commit.outputs.prev_commit }}" == "none" ]; then
-      #    echo "No previous commit found. Assuming first run."
-      #    echo "updated=true" >> $GITHUB_OUTPUT
-      #  elif [ "${{ steps.get_latest_commit.outputs.commit }}" != "${{ steps.load_previous_commit.outputs.prev_commit }}" ]; then
-      #    echo "updated=true" >> $GITHUB_OUTPUT
-      #  else
-      #    echo "updated=false" >> $GITHUB_OUTPUT
-      #  fi
-        
-      #  echo "Update status: ${{ steps.compare_commits.outputs.updated }}"
-
-  #  - name: Save latest commit hash to file
-  #    run: echo "${{ steps.get_latest_commit.outputs.commit }}" > .prev_commit
+    - name: Compare commits (Handle first run)
+      id: compare_commits
+      run: |
+        if [ "${{ steps.load_previous_commit.outputs.prev_commit }}" == "none" ]; then
+          echo "No previous commit found. Assuming first run."
+          echo "updated=true" >> $GITHUB_OUTPUT
+        elif [ "${{ steps.get_latest_commit.outputs.commit }}" != "${{ steps.load_previous_commit.outputs.prev_commit }}" ]; then
+          echo "updated=true" >> $GITHUB_OUTPUT
+        else
+          echo "updated=false" >> $GITHUB_OUTPUT
+        fi
+     
+     - name: Save latest commit hash to file
+       run: |
+          echo "${{ steps.get_latest_commit.outputs.commit }}" > .prev_commit
 
   pooptweets-post:
     needs: check-for-update
-    if: needs.check-for-update.outputs.updated == 'true'
+    if: needs.check-for-update.outputs.updated == 'true' || github.event_name == 'workflow_dispatch' 
     runs-on: macOS-latest
     env:
       RBOT_TWITTER_API_KEY: ${{ secrets.RBOT_TWITTER_API_KEY }}
