@@ -7,7 +7,7 @@ on:
 
 jobs:
   check-for-update:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Check PHESD repo
       uses: actions/checkout@v2
