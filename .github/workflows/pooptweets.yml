@@ -6,7 +6,42 @@ on:
   workflow_dispatch:
 
 jobs:
+  updatecheck
+    runs-on: macOS-latest
+    steps:
+    - name: check PHESD repo
+      uses: actions/checkout@v2
+      with: 
+        repository: 'Delatolla-lab/PHESD' #public PHED repo
+
+    - name: Fetch latest commit hash
+      id: get_latest_commit
+      run: echo "::set-output name=commit::$(git rev-parse HEAD)"
+
+    - name: Load previous commit hash from file (if it exists)
+      id: load_previous_commit
+      run: |
+        if [ -f .prev_commit ]; then 
+          echo "::set-output name=prev_commit::$(cat .prev_commit)"
+        else
+          echo "::set-output name=prev_commit::none"
+        fi
+
+    - name: Compare commits
+      id: compare_commits
+      run: |
+         if [ "${{ steps.get_latest_commit.outputs.commit }}" != "${{ steps.load_previous_commit.outputs.prev_commit }}" ]; then
+          echo "::set-output name=updated::true"
+        else
+          echo "::set-output name=updated::false"
+        fi
+        
+    - name: Save latest commit hash to file
+      run: echo "${{ steps.get_latest_commit.outputs.commit }}" > .prev_commit
+
   pooptweets-post:
+    needs: check-for-update
+    if: needs.check-for-update.outputs.updated == 'true'
     runs-on: macOS-latest
     env:
       RBOT_TWITTER_API_KEY: ${{ secrets.RBOT_TWITTER_API_KEY }}
