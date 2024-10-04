@@ -9,10 +9,10 @@ jobs:
   check-for-update:
     runs-on: macOS-latest
     steps:
-    - name: check PHESD repo
+    - name: Check PHESD repo
       uses: actions/checkout@v2
       with: 
-        repository: 'Delatolla-lab/PHESD' #public PHED repo
+        repository: 'Delatolla-lab/PHESD'  # Public PHED repo
 
     - name: Fetch latest commit hash
       id: get_latest_commit
@@ -27,11 +27,14 @@ jobs:
           echo "prev_commit=none" >> $GITHUB_OUTPUT
         fi
 
-    - name: Compare commits
+    - name: Compare commits (Handle first run)
       id: compare_commits
       run: |
+        echo "Previous commit: ${{ steps.load_previous_commit.outputs.prev_commit }}"
+        echo "Latest commit: ${{ steps.get_latest_commit.outputs.commit }}"
+
         if [ "${{ steps.load_previous_commit.outputs.prev_commit }}" == "none" ]; then
-          echo "No previous commit found. Assuming first run." 
+          echo "No previous commit found. Assuming first run."
           echo "updated=true" >> $GITHUB_OUTPUT
         elif [ "${{ steps.get_latest_commit.outputs.commit }}" != "${{ steps.load_previous_commit.outputs.prev_commit }}" ]; then
           echo "updated=true" >> $GITHUB_OUTPUT
@@ -39,6 +42,8 @@ jobs:
           echo "updated=false" >> $GITHUB_OUTPUT
         fi
         
+        echo "Update status: ${{ steps.compare_commits.outputs.updated }}"
+
     - name: Save latest commit hash to file
       run: echo "${{ steps.get_latest_commit.outputs.commit }}" > .prev_commit
 
@@ -51,7 +56,7 @@ jobs:
       RBOT_TWITTER_API_SECRET: ${{ secrets.RBOT_TWITTER_API_SECRET }}
       RBOT_TWITTER_ACCESS_KEY: ${{ secrets.RBOT_TWITTER_ACCESS_KEY }}
       RBOT_TWITTER_ACCESS_SECRET: ${{ secrets.RBOT_TWITTER_ACCESS_SECRET }}
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }} #needed for remotes access
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}  # needed for remote access
     steps:
       - uses: actions/checkout@v2
       - name: Create cache directory
