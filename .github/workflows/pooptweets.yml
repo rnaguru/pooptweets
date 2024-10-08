@@ -53,7 +53,6 @@ jobs:
           echo "${{ steps.get_latest_commit.outputs.commit }}" > .prev_commit
 
   pooptweets-post:
-    needs: check-for-update
     if: false  #Disable this job temporarily
     runs-on: macOS-latest
     env:
