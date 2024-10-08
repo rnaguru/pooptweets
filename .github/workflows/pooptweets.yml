@@ -54,7 +54,7 @@ jobs:
 
   pooptweets-post:
     needs: check-for-update
-    if: needs.check-for-update.outputs.updated == 'true' || github.event_name == 'workflow_dispatch' 
+      if: false  # Disable this job temporarily
     runs-on: macOS-latest
     env:
       RBOT_TWITTER_API_KEY: ${{ secrets.RBOT_TWITTER_API_KEY }}
