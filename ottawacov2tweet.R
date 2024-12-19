@@ -423,8 +423,10 @@ library(bskyr)
 
 # Authenticate with Bluesky
 
-set_bluesky_user('YOUR-USERNAME.bsky.social')
-set_bluesky_pass('your-apps-pass-word')
+bskyr::bs_auth(
+  user = Sys.getenv("RBOT_BSKY_ACCESS_USER"),
+  pass = Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD")
+)
 
 # Post to Bluesky
 # First Tweet
