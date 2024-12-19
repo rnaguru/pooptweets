@@ -54,6 +54,8 @@ jobs:
       RBOT_TWITTER_ACCESS_KEY: ${{ secrets.RBOT_TWITTER_ACCESS_KEY }}
       RBOT_TWITTER_ACCESS_SECRET: ${{ secrets.RBOT_TWITTER_ACCESS_SECRET }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}  # needed for remote access
+      RBOT_BSKY_ACCESS_USER: ${{ secrets.RBOT_BSKY_ACCESS_USER }}
+      RBOT_BSKY_ACESS_PASSWORD: ${{ secrets.RBOT_BSKY_ACCESS_PASSWORD }}
     steps:
       - uses: actions/checkout@v2
       - name: Create cache directory
