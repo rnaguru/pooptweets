@@ -422,11 +422,14 @@ post_tweet(
 library(bskyr)
 
 # Authenticate with Bluesky
+user = Sys.getenv("RBOT_BSKY_ACCESS_USER")
+pass = Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD")
 
 bskyr::bs_auth(
-  user = Sys.getenv("RBOT_BSKY_ACCESS_USER"),
-  pass = Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD")
+  user,
+  pass
 )
+
 
 # Post to Bluesky
 # First Tweet
