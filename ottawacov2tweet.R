@@ -414,3 +414,47 @@ post_tweet(
   token = rbot_token,
   in_reply_to_status_id = reply_id2
 )
+
+#------
+
+
+# Install and load the Bluesky package
+library(bsky)
+
+# Authenticate with Bluesky
+bsky_session <- bsky_auth(
+  handle = Sys.getenv("RBOT_BSKY_ACCESS_USER"),
+  password = Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD")
+)
+
+# Post to Bluesky
+# First Tweet
+bsky_post(
+  session = bsky_session,
+  text = message,
+  alt_text = alttext,
+  images = list("ottawacov2ww.png")
+)
+
+# Second Tweet
+bsky_post(
+  session = bsky_session,
+  text = message2,
+  alt_text = alttext2,
+  images = list("ottawavirusww.png")
+)
+
+# Reply to the First Post
+bsky_post(
+  session = bsky_session,
+  text = replymessage,
+  reply_to = NULL  # Currently, bsky does not support direct reply threading like Twitter.
+)
+
+# Reply to the Second Post
+bsky_post(
+  session = bsky_session,
+  text = replymessage2,
+  reply_to = NULL
+)
+
