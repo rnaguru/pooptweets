@@ -440,9 +440,9 @@ bskymessage <- paste(
 )
 #nchar(bskymessage)
 
-# 2nd bsky message (300 character limit)
+# 2nd bskymessage
 bskymessage2 <- paste(
-  "Average of N1 and N2 SARS-CoV-2, and other viral genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity.bsky.social, tested and analyzed by Delatolla lab (uOttawa); Data i/o by @doug_manuel.bsky.social; Plots and tweet bot by @rnaguru.bsky.social",
+  "Avg. of SARS-CoV-2 N1, N2 or other viral genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples collected by @ottawacity.bsky.social, tested & analyzed by Delatolla lab (uOttawa); Data i/o by @doug_manuel.bsky.social; Plots and tweet bot by @rnaguru.bsky.social",
   sep= ""
 )
 #nchar(bskymessage2)
@@ -455,7 +455,7 @@ bs_post(
 )
 
 #add in a pause before the next post = 30s
-Sys.sleep(30)
+#Sys.sleep(30)
 
 # Post 2nd post (description) to Bluesky
 bs_post(
