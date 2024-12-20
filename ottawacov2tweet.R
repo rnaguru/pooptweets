@@ -422,13 +422,17 @@ nchar(alttext)
 library(bskyr)
 
 # Authenticate with Bluesky
-user = "rnaguru.bsky.social"
-pass = Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD")
+#user = "rnaguru.bsky.social"
+#pass = Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD")
 
-bskyr::bs_auth(
-  user,
-  pass
-)
+set_bluesky_user('rnaguru.bsky.social')
+set_bluesky_pass(Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD"))
+
+
+#bskyr::bs_auth(
+#  user,
+#  pass
+#)
 
 
 # Post to Bluesky
