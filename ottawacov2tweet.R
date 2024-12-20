@@ -424,8 +424,5 @@ set_bluesky_user('rnaguru.bsky.social')
 set_bluesky_pass(Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD"))
 
 # Post to Bluesky
-bs_post(
-  text = message, 
-  images = png
-)
+bs_post(message, png)
 
