@@ -435,7 +435,7 @@ bskypng2 <- bs_upload_blob(bskypng2, clean = FALSE)
 bs_post(
   text = message,
   images = c(bskypng,bskypng2),
-  images_alt = alttext
+  images_alt = c(alttext, alttext2)
 )
 
 # Post 2nd post (description) to Bluesky
