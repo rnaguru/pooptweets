@@ -434,7 +434,7 @@ bskypng2 <- bs_upload_blob(bskypng2, clean = FALSE)
 # Post first plot to Bluesky
 bs_post(
   text = message,
-  images = c(bskypng,bskypng2)
+  images = c(bskypng,bskypng2),
   images_alt = alttext
 )
 
