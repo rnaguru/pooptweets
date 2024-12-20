@@ -19,6 +19,7 @@
 * save a png file;
 * tweet to @rnaguru using rtweet with WebAuth 1.0 authentication via Github secrets;
 * tweet again but with RSV, IAV, IBV plots, with a similar method as above. This code is incorporated into `pooptweets.yml`
+* Post to Bluesky using bskyr. Authentication via Bluesky app password and Github repo secrets. 
 
 
 **Detailed pipeline**
