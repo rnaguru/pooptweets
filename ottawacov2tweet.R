@@ -435,7 +435,7 @@ bskypng2 <- bs_upload_blob(bskypng2, clean = FALSE)
 bskymessage <- paste(
   "Ottawa WAVE (Wastewater Analytics for Viral Epidemiology) as of ",
   format(lastpoint$Date, "%b %d"), 
-  ". LEFT IMAGE: SARS-CoV-2 signal since spring 2020 (A), 7d trendline, past year=blue; Past year with last 2 months in blue (B); Past 2 months (C), inferred case incidence (D), and Reff (E) determined with ern (PMID: 38905266). RIGHT IMAGE: other monitored viral traces",
+  ". LEFT IMAGE: 7d trendline of SARS-CoV-2 signal since spring 2020 (A); Past year (B), and 2 months (C), inferred case incidence (D), and Reff (E) determined with ern (PMID: 38905266). RIGHT IMAGE: other viral traces",
   sep=""
 )
 #nchar(bskymessage)
@@ -455,6 +455,6 @@ bs_post(
 )
 
 # Post 2nd post (description) to Bluesky
-#bs_post(
-#  text = bskymessage2
-#)
+bs_post(
+  text = bskymessage2
+)
