@@ -431,26 +431,30 @@ bskypng2 <- save_plot("ottawavirusww.png", plot=plot2, base_height=9,base_width=
 bskypng <- bs_upload_blob(bskypng, clean = FALSE)
 bskypng2 <- bs_upload_blob(bskypng2, clean = FALSE)
 
+# bsky message (300 character limit)
+bskymessage <- paste(
+  "Ottawa WAVE (Wastewater Analytics for Viral Epidemiology) as of ",
+  format(lastpoint$Date, "%b %d"), 
+  ". LEFT IMAGE: SARS-CoV-2 signal since spring 2020 (A), 7d trendline, past year=blue; Past year with last 2 months in blue (B); Past 2 months (C), inferred case incidence (D), and Reff (E) determined with ern (PMID: 38905266). RIGHT IMAGE: other monitored viral traces",
+  sep=""
+)
+#nchar(bskymessage)
+
+# 2nd bsky message (300 character limit)
+bskymessage2 <- paste(
+  "Average of N1 and N2 SARS-CoV-2, and other viral genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity.bsky.social, tested and analyzed by Delatolla lab (uOttawa); Data i/o by @doug_manuel.bsky.social; Plots and tweet bot by @rnaguru.bsky.social",
+  sep= ""
+)
+#nchar(bskymessage2)
+
 # Post first plot to Bluesky
 bs_post(
-  text = message,
+  text = bskymessage,
   images = c(bskypng,bskypng2),
   images_alt = c(alttext, alttext2)
 )
 
 # Post 2nd post (description) to Bluesky
-#bs_post(
-#  text = replymessage
-#)
-
-# Post 2nd plot to Bluesky
 bs_post(
-#  text = message2,
-#  images = bskypng2,
-#  images_alt = alttext2
-#)
-
-# Post 3rd post (description) to Bluesky
-#bs_post(
-#  text = replymessage2
-#)
+  text = bskymessage2
+)
