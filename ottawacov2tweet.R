@@ -251,20 +251,20 @@ alttext <- paste(
 nchar(alttext)
 
 # Tweet message (280 character limit)
-#message <- paste(
-#  "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
-#  format(lastpoint$Date, "%B %d"), 
-#  ". Pandemic highlighting past year (A), blue line is weekly average; Past year highlighting last 2 months (B); Past 2 months (C), inferred case incidence (D), and Reff (E) determined with github.com/phac-nml-phrsd/ern",
-#  sep=""
-#)
-#nchar(message)
-#
-# 2nd Tweet message (280 character limit)
-#replymessage <- paste(
-#  "Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
-#  sep= "\n"
-#)
-#nchar(replymessage)
+message <- paste(
+  "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
+  format(lastpoint$Date, "%B %d"), 
+  ". Pandemic highlighting past year (A), blue line is weekly average; Past year highlighting last 2 months (B); Past 2 months (C), inferred case incidence (D), and Reff (E) determined with github.com/phac-nml-phrsd/ern",
+  sep=""
+)
+nchar(message)
+
+ 2nd Tweet message (280 character limit)
+replymessage <- paste(
+  "Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
+  sep= "\n"
+)
+nchar(replymessage)
 
 #TWEET it out via pooptweets twitter app --------------------------------------------------------
 library(rtweet)
@@ -384,13 +384,13 @@ alttext2 <- paste(
 nchar(alttext)
 
 # Tweet message (280 character limit)
-#message2 <- paste(
-#  "#Ottawa virus wastewater trends as of: ", 
-#  format(lastpoint_INFA$Date, "%B %d"), 
-#  ". Polyline = 7 day average normalized signal.",
-#  sep=""
-#)
-#nchar(message2)
+message2 <- paste(
+  "#Ottawa virus wastewater trends as of: ", 
+  format(lastpoint_INFA$Date, "%B %d"), 
+  ". Polyline = 7 day average normalized signal.",
+  sep=""
+)
+nchar(message2)
 
 # 2nd Tweet message (280 character limit)
 #replymessage2 <- paste(
@@ -415,29 +415,16 @@ nchar(alttext)
 #  in_reply_to_status_id = reply_id2
 #)
 
-#------
-
-
-# Install and load the Bluesky package
+# Install and load the Bluesky package to post to Bsky
 library(bskyr)
 
 # Authenticate with Bluesky
-#user = "rnaguru.bsky.social"
-#pass = Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD")
-
 set_bluesky_user('rnaguru.bsky.social')
 set_bluesky_pass(Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD"))
 
-
-#bskyr::bs_auth(
-#  user,
-#  pass
-#)
-
-
 # Post to Bluesky
-# First Tweet
 bs_post(
-  text = 'test.', 
+  text = message, 
+  images = png
 )
 
