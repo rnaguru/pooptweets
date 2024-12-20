@@ -251,20 +251,20 @@ alttext <- paste(
 nchar(alttext)
 
 # Tweet message (280 character limit)
-message <- paste(
-  "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
-  format(lastpoint$Date, "%B %d"), 
-  ". Pandemic highlighting past year (A), blue line is weekly average; Past year highlighting last 2 months (B); Past 2 months (C), inferred case incidence (D), and Reff (E) determined with github.com/phac-nml-phrsd/ern",
-  sep=""
-)
-nchar(message)
-
+#message <- paste(
+#  "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
+#  format(lastpoint$Date, "%B %d"), 
+#  ". Pandemic highlighting past year (A), blue line is weekly average; Past year highlighting last 2 months (B); Past 2 months (C), inferred case incidence (D), and Reff (E) determined with github.com/phac-nml-phrsd/ern",
+#  sep=""
+#)
+#nchar(message)
+#
 # 2nd Tweet message (280 character limit)
-replymessage <- paste(
-  "Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
-  sep= "\n"
-)
-nchar(replymessage)
+#replymessage <- paste(
+#  "Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
+#  sep= "\n"
+#)
+#nchar(replymessage)
 
 #TWEET it out via pooptweets twitter app --------------------------------------------------------
 library(rtweet)
@@ -280,20 +280,20 @@ rbot_token <- rtweet::create_token(
   set_renv = FALSE
 )
 
-firsttweet <- post_tweet(
-  status = message,
-  media = png,
-  media_alt_text = alttext,
-  token = rbot_token
-)
+#firsttweet <- post_tweet(
+#  status = message,
+#  media = png,
+#  media_alt_text = alttext,
+#  token = rbot_token
+#)
 
-reply_id <- ids(firsttweet)
-
-post_tweet(
-  status = replymessage,
-  token = rbot_token,
-  in_reply_to_status_id = reply_id
-)
+#reply_id <- ids(firsttweet)
+#
+#post_tweet(
+#  status = replymessage,
+#  token = rbot_token,
+#  in_reply_to_status_id = reply_id
+#)
 
 #OTHER VIRUS PLOTS -------------------------------------------------------------
 ottawaalltime_INFA <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFA), alpha = 7/10)) +
@@ -384,36 +384,36 @@ alttext2 <- paste(
 nchar(alttext)
 
 # Tweet message (280 character limit)
-message2 <- paste(
-  "#Ottawa virus wastewater trends as of: ", 
-  format(lastpoint_INFA$Date, "%B %d"), 
-  ". Polyline = 7 day average normalized signal.",
-  sep=""
-)
-nchar(message2)
+#message2 <- paste(
+#  "#Ottawa virus wastewater trends as of: ", 
+#  format(lastpoint_INFA$Date, "%B %d"), 
+#  ". Polyline = 7 day average normalized signal.",
+#  sep=""
+#)
+#nchar(message2)
 
 # 2nd Tweet message (280 character limit)
-replymessage2 <- paste(
-  "Average of genetic markers for each viral target normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
-  sep= "\n"
-)
-nchar(replymessage2)
+#replymessage2 <- paste(
+#  "Average of genetic markers for each viral target normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
+#  sep= "\n"
+#)
+#nchar(replymessage2)
 
 #TWEET out 2nd post via pooptweets twitter app --------------------------------------------------------
-secondtweet <- post_tweet(
-  status = message2,
-  media = png2,
-  media_alt_text = alttext2,
-  token = rbot_token
-)
+#secondtweet <- post_tweet(
+#  status = message2,
+#  media = png2,
+#  media_alt_text = alttext2,
+#  token = rbot_token
+#)
 
-reply_id2 <- ids(secondtweet)
+#reply_id2 <- ids(secondtweet)
 
-post_tweet(
-  status = replymessage2,
-  token = rbot_token,
-  in_reply_to_status_id = reply_id2
-)
+#post_tweet(
+#  status = replymessage2,
+#  token = rbot_token,
+#  in_reply_to_status_id = reply_id2
+#)
 
 #------
 
@@ -422,7 +422,7 @@ post_tweet(
 library(bskyr)
 
 # Authenticate with Bluesky
-user = Sys.getenv("RBOT_BSKY_ACCESS_USER")
+user = "rnaguru.bsky.social"
 pass = Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD")
 
 bskyr::bs_auth(
