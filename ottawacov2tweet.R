@@ -435,7 +435,7 @@ bskypng2 <- bs_upload_blob(bskypng2, clean = FALSE)
 bs_post(
   text = message,
   images = bskypng,
-  images_alt = altext
+  images_alt = alttext
 )
 
 # Post 2nd post (description) to Bluesky
@@ -447,7 +447,7 @@ bs_post(
 bs_post(
   text = message2,
   images = bskypng2,
-  images_alt = altext2
+  images_alt = alttext2
 )
 
 # Post 3rd post (description) to Bluesky
