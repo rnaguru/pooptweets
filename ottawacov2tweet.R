@@ -455,6 +455,6 @@ bs_post(
 )
 
 # Post 2nd post (description) to Bluesky
-bs_post(
-  text = bskymessage2
-)
+#bs_post(
+#  text = bskymessage2
+#)
