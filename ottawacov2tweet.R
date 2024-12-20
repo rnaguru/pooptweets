@@ -424,8 +424,8 @@ set_bluesky_user('rnaguru.bsky.social')
 set_bluesky_pass(Sys.getenv("RBOT_BSKY_ACCESS_PASSWORD"))
 
 #the dimensions of the plots aren't dealt well with this package so need to redefine png plot
-bskypng <- save_plot("ottawacov2ww.png", plot=finalplot)
-bskypng2 <- save_plot("ottawavirusww.png", plot=plot2)
+bskypng <- save_plot("ottawacov2ww.png", plot=finalplot, base_height=9,base_width=5))
+bskypng2 <- save_plot("ottawavirusww.png", plot=plot2, base_height=9,base_width=5))
 
 # for some reason I need to upload a blob otherwise I get a httr2 error (metadata API issue?)
 bskypng <- bs_upload_blob(bskypng, clean = FALSE)
@@ -434,23 +434,23 @@ bskypng2 <- bs_upload_blob(bskypng2, clean = FALSE)
 # Post first plot to Bluesky
 bs_post(
   text = message,
-  images = bskypng,
+  images = c(bskypng,bskypng2)
   images_alt = alttext
 )
 
 # Post 2nd post (description) to Bluesky
-bs_post(
-  text = replymessage
-)
+#bs_post(
+#  text = replymessage
+#)
 
 # Post 2nd plot to Bluesky
 bs_post(
-  text = message2,
-  images = bskypng2,
-  images_alt = alttext2
-)
+#  text = message2,
+#  images = bskypng2,
+#  images_alt = alttext2
+#)
 
 # Post 3rd post (description) to Bluesky
-bs_post(
-  text = replymessage2
-)
+#bs_post(
+#  text = replymessage2
+#)
