@@ -454,6 +454,9 @@ bs_post(
   images_alt = c(alttext, alttext2)
 )
 
+#add in a pause before the next post = 30s
+Sys.sleep(30)
+
 # Post 2nd post (description) to Bluesky
 bs_post(
   text = bskymessage2
