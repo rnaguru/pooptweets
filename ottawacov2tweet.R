@@ -442,7 +442,7 @@ bskymessage <- paste(
 
 # 2nd bskymessage
 bskymessage2 <- paste(
-  "Avg. of SARS-CoV-2 N1, N2 or other viral genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples collected by @ottawacity.bsky.social, tested & analyzed by Delatolla lab (uOttawa); Data i/o by @doug_manuel.bsky.social; Plots and tweet bot by @rnaguru.bsky.social",
+  "Avg. of SARS-CoV-2 N1, N2 or other viral genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples collected by @ottawacity.bsky.social, tested & analyzed by Delatolla lab (uOttawa); Data i/o by @dougmanuel.bsky.social; Plots and tweet bot by @rnaguru.bsky.social",
   sep= ""
 )
 #nchar(bskymessage2)
