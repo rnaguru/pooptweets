@@ -259,7 +259,7 @@ message <- paste(
 )
 nchar(message)
 
- 2nd Tweet message (280 character limit)
+# 2nd Tweet message (280 character limit)
 replymessage <- paste(
   "Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
   sep= "\n"
@@ -267,6 +267,7 @@ replymessage <- paste(
 nchar(replymessage)
 
 #TWEET it out via pooptweets twitter app --------------------------------------------------------
+
 library(rtweet)
 
 # Create a token containing your Twitter keys
@@ -393,11 +394,11 @@ message2 <- paste(
 nchar(message2)
 
 # 2nd Tweet message (280 character limit)
-#replymessage2 <- paste(
-#  "Average of genetic markers for each viral target normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
-#  sep= "\n"
-#)
-#nchar(replymessage2)
+replymessage2 <- paste(
+  "Average of genetic markers for each viral target normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
+  sep= "\n"
+)
+nchar(replymessage2)
 
 #TWEET out 2nd post via pooptweets twitter app --------------------------------------------------------
 #secondtweet <- post_tweet(
