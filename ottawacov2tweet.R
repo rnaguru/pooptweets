@@ -245,41 +245,41 @@ finalplot <-plot_grid(ottawaalltime, ottawapastyear, bottomrow,ncol = 1, align =
 png <- save_plot("ottawacov2ww.png", plot=finalplot,base_height=9,base_width=5)
 
 # Tweet alt-text description (1000 character limit)
-alttext <- paste(
-  "Plots of SARS-CoV-2 signal across time in Ottawa, Canada;",
-  sep= "\n")
-nchar(alttext)
+#alttext <- paste(
+#  "Plots of SARS-CoV-2 signal across time in Ottawa, Canada;",
+#  sep= "\n")
+#nchar(alttext)
 
 # Tweet message (280 character limit)
-message <- paste(
-  "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
-  format(lastpoint$Date, "%B %d"), 
-  ". Pandemic highlighting past year (A), blue line is weekly average; Past year highlighting last 2 months (B); Past 2 months (C), inferred case incidence (D), and Reff (E) determined with github.com/phac-nml-phrsd/ern",
-  sep=""
-)
-nchar(message)
+#message <- paste(
+#  "#Ottawa SARS-CoV-2 wastewater trends as of: ", 
+#  format(lastpoint$Date, "%B %d"), 
+#  ". Pandemic highlighting past year (A), blue line is weekly average; Past year highlighting last 2 months (B); Past 2 months (C), inferred case incidence (D), and Reff (E) determined with github.com/phac-nml-phrsd/ern",
+#  sep=""
+#)
+#nchar(message)
 
 # 2nd Tweet message (280 character limit)
-replymessage <- paste(
-  "Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
-  sep= "\n"
-)
-nchar(replymessage)
+#replymessage <- paste(
+ # "Average of N1 and N2 SARS-CoV-2 genetic markers normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
+  #sep= "\n"
+#)
+#nchar(replymessage)
 
-#TWEET it out via pooptweets twitter app --------------------------------------------------------
+#DEPRECATED -- TWEET it out via pooptweets twitter app --------------------------------------------------------
 
-library(rtweet)
+#library(rtweet)
 
 # Create a token containing your Twitter keys
-rbot_token <- rtweet::create_token(
-  app = "pooptweet2",
+#rbot_token <- rtweet::create_token(
+ # app = "pooptweet2",
   # the name of the Twitter app
-  consumer_key = Sys.getenv("RBOT_TWITTER_API_KEY"),
-  consumer_secret = Sys.getenv("RBOT_TWITTER_API_SECRET"),
-  access_token = Sys.getenv("RBOT_TWITTER_ACCESS_KEY"),
-  access_secret = Sys.getenv("RBOT_TWITTER_ACCESS_SECRET"),
-  set_renv = FALSE
-)
+  #consumer_key = Sys.getenv("RBOT_TWITTER_API_KEY"),
+  #consumer_secret = Sys.getenv("RBOT_TWITTER_API_SECRET"),
+  #access_token = Sys.getenv("RBOT_TWITTER_ACCESS_KEY"),
+  #access_secret = Sys.getenv("RBOT_TWITTER_ACCESS_SECRET"),
+  #set_renv = FALSE
+#)
 
 #firsttweet <- post_tweet(
 #  status = message,
@@ -379,26 +379,26 @@ plot2 <-plot_grid(ottawaalltime_INFA, NULL, ottawaalltime_RSV, NULL, ottawaallti
 png2 <- save_plot("ottawavirusww.png", plot=plot2,base_height=8,base_width=5)
 
 # Tweet alt-text description (1000 character limit)
-alttext2 <- paste(
-  "Plots of IAV, RSV, IBV, MPOX wastewater signal across time in Ottawa, Canada;",
-  sep= "\n")
-nchar(alttext)
+#alttext2 <- paste(
+#  "Plots of IAV, RSV, IBV, MPOX wastewater signal across time in Ottawa, Canada;",
+#  sep= "\n")
+#nchar(alttext)
 
 # Tweet message (280 character limit)
-message2 <- paste(
-  "#Ottawa virus wastewater trends as of: ", 
-  format(lastpoint_INFA$Date, "%B %d"), 
-  ". Polyline = 7 day average normalized signal.",
-  sep=""
-)
-nchar(message2)
+#message2 <- paste(
+#  "#Ottawa virus wastewater trends as of: ", 
+#  format(lastpoint_INFA$Date, "%B %d"), 
+#  ". Polyline = 7 day average normalized signal.",
+ # sep=""
+#)
+#nchar(message2)
 
 # 2nd Tweet message (280 character limit)
-replymessage2 <- paste(
-  "Average of genetic markers for each viral target normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
-  sep= "\n"
-)
-nchar(replymessage2)
+#replymessage2 <- paste(
+#  "Average of genetic markers for each viral target normalized to Pepper Mild Mottle Virus as a fecal strength indicator; Samples are collected by @ottawacity, tested and analyzed by @RobDelatolla lab; Data i/o by @doug_manuel lab; Plots and tweet bot by @rnaguru.",
+#  sep= "\n"
+#)
+#nchar(replymessage2)
 
 #TWEET out 2nd post via pooptweets twitter app --------------------------------------------------------
 #secondtweet <- post_tweet(
