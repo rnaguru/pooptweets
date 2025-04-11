@@ -245,10 +245,10 @@ finalplot <-plot_grid(ottawaalltime, ottawapastyear, bottomrow,ncol = 1, align =
 png <- save_plot("ottawacov2ww.png", plot=finalplot,base_height=9,base_width=5)
 
 # Tweet alt-text description (1000 character limit)
-#alttext <- paste(
-#  "Plots of SARS-CoV-2 signal across time in Ottawa, Canada;",
-#  sep= "\n")
-#nchar(alttext)
+alttext <- paste(
+  "Plots of SARS-CoV-2 signal across time in Ottawa, Canada;",
+  sep= "\n")
+nchar(alttext)
 
 # Tweet message (280 character limit)
 #message <- paste(
@@ -379,10 +379,10 @@ plot2 <-plot_grid(ottawaalltime_INFA, NULL, ottawaalltime_RSV, NULL, ottawaallti
 png2 <- save_plot("ottawavirusww.png", plot=plot2,base_height=8,base_width=5)
 
 # Tweet alt-text description (1000 character limit)
-#alttext2 <- paste(
-#  "Plots of IAV, RSV, IBV, MPOX wastewater signal across time in Ottawa, Canada;",
-#  sep= "\n")
-#nchar(alttext)
+alttext2 <- paste(
+  "Plots of IAV, RSV, IBV, MPOX wastewater signal across time in Ottawa, Canada;",
+  sep= "\n")
+nchar(alttext)
 
 # Tweet message (280 character limit)
 #message2 <- paste(
