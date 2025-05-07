@@ -80,8 +80,8 @@ jobs:
             remotes::install_version("ggrepel", version = "0.9.1", repos = "https://cloud.r-project.org")
             remotes::install_version("zoo", version = "1.8-10", repos = "https://cloud.r-project.org")
             remotes::install_version("gghighlight", version = "0.4.0", repos = "https://cloud.r-project.org")
+            remotes::install_version("bskyr", version = "0.2.0", repos = "https://cloud.r-project.org")
             remotes::install_github("rnaguru/ern")
-            remotes::install_github("mikmart/bskyr", version = "0.2.0", repos = "https://cloud.r-project.org")
         shell: Rscript {0}
       - name: Run the R script
         run: Rscript ottawacov2tweet.R
