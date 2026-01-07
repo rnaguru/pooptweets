@@ -314,7 +314,7 @@ ottawaalltime_INFA <- ggplot(wwopen2, aes(x=Date, y = as.numeric(INFA), alpha = 
   geom_label(aes(x=lastpoint_INFA$Date, y=-0.04, label= paste('latest data:', toString(format(lastpoint_INFA$Date, "%B %d")))), color="slategrey", fill="white", alpha=1/25, size=2.5, vjust=0.5, hjust=1
   )+
   #limit y-axis and add comment to plot to deal with an outlier on decmeber 7, 2023
-  ylim(-0.04,0.3)+
+  ylim(-0.04,0.5)+
   annotate("text", x = Sys.Date() -250, y = 0.25, size = 2.2, color="darkblue", label = paste("To improve visual clarity, a single-day, high-signal outlier \n reported December 7, 2023 has been removed from this plot. \n The weekly average (blue line) still includes this outlier.")
   )
 
