@@ -1,4 +1,4 @@
-### An application to gather Ottawa wastewater data from PHESD github repo, assemble plots, and tweet the plots @rnaguru whenever there is a new commit.
+no### An application to gather Ottawa wastewater data from PHESD github repo, assemble plots, and tweet the plots @rnaguru whenever there is a new commit.
 
 **Overview of Pipeline:** 
 
@@ -78,3 +78,4 @@ estimate_R_ww(
 
 > [!CAUTION]
 > The Reff and incidence curves are generated based on the entire pandemic period, but only the last two months are shown via the tweet.
+
