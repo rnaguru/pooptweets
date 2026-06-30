@@ -78,4 +78,3 @@ estimate_R_ww(
 
 > [!CAUTION]
 > The Reff and incidence curves are generated based on the entire pandemic period, but only the last two months are shown via the tweet.
-
