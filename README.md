@@ -1,4 +1,4 @@
-An application to gather Ottawa wastewater data from PHESD github repo, assemble plots, and tweet the plots @rnaguru whenever there is a new commit.
+An application to gather Ottawa wastewater data from PHESD github repo, assemble plots, and post the plots @rnaguru ob bluesky whenever there is a new commit.
 
 **Overview of Pipeline:** 
 
